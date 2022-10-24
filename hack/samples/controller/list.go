@@ -6,6 +6,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
 	"path/filepath"
 
 	"github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha1"
@@ -71,9 +72,16 @@ func getImgRegOpClient(config *rest.Config) (ctrlClient.Client, error) {
 }
 
 func startTestEnv() (*rest.Config, error) {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		panic(err)
+	}
+	crd_filepath := filepath.Join(dir, "..", "..", "..", "config", "crd", "bases")
+	fmt.Println("CRD filepath: " + crd_filepath)
+
 	testEnv = &envtest.Environment{
 		CRDDirectoryPaths: []string{
-			filepath.Join("..", "..", "config", "crd", "bases"),
+			crd_filepath,
 		},
 	}
 

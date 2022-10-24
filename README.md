@@ -53,9 +53,8 @@ kubectl get contentlibraries
 
 ### Build and Test the sample code
 
-cd hack/samples
-make all
-bin/list-ctrl
+make list-ctrl
+./hack/samples/bin/list-ctrl
 
 ## Contributing
 

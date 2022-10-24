@@ -71,9 +71,8 @@ kubectl get contentlibraries
 
 ### Build and Test the sample code
 
-cd hack/samples
-make all
-bin/list-ctrl
+make list-ctrl
+./hack/samples/bin/list-ctrl
 
 ## Development Flow
 
@@ -82,7 +81,7 @@ locally. The `Makefile` in this repository provides useful targets such as
 `all`, `generate`, `lint` and `list-ctrl` to make verification easier.
 
 After adding or modifying the APIs build the `generate' target and verify the
-generated CRDs under `config/crd/bases' folder. Add or modify the sample 
+generated CRDs under `config/crd/bases' folder. Add or modify the sample
 controller to test the changes under 'hack/samples/controller' folder
 and execute the binary to verify the changes.
 
