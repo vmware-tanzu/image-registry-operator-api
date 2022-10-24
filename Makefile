@@ -11,9 +11,11 @@ export GO111MODULE := on
 
 # Directories
 BIN_DIR       := bin
+SAMPLES_DIR   := hack/samples
+SAMPLES_BIN_DIR := $(SAMPLES_DIR)/bin
 TOOLS_DIR     := hack/tools
 TOOLS_BIN_DIR := $(TOOLS_DIR)/bin
-export PATH := $(abspath $(BIN_DIR)):$(abspath $(TOOLS_BIN_DIR)):$(PATH)
+export PATH := $(abspath $(BIN_DIR)):$(abspath $(TOOLS_BIN_DIR)):$(abspath $SAMPLES_BIN_DIR)):$(PATH)
 
 # Tooling binaries
 CONTROLLER_GEN     := $(TOOLS_BIN_DIR)/controller-gen
@@ -78,6 +80,14 @@ generate-manifests: $(CONTROLLER_GEN) ## Generate manifests e.g. CRD, RBAC etc.
 		output:none
 
 ## --------------------------------------
+##@ Samples
+## --------------------------------------
+
+.PHONY: list-ctrl
+list-ctrl: ## Build list sample with controller client
+	cd $(SAMPLES_DIR); make $@
+
+## --------------------------------------
 ##@ Linting
 ## --------------------------------------
 
@@ -110,8 +120,9 @@ clean: # Clean all generated or compiled files
 	$(MAKE) modules
 
 .PHONY: clean-bin
-clean-bin: ## Remove all generated tooling binaries
+clean-bin: ## Remove all generated binaries
 	rm -rf hack/tools/bin
+	rm -rf hack/samples/bin
 
 .PHONY: clean-crd
 clean-crd: ## Remove all generated crds

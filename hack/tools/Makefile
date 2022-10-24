@@ -38,7 +38,7 @@ $(CONTROLLER_GEN): go.mod
 .PHONY: $(GOLANGCI_LINT)
 golangci-lint: $(GOLANGCI_LINT) ## Install golangci-lint
 $(GOLANGCI_LINT):
-		@[ -f $(BIN_DIR)/golangci-lint ] || curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(BIN_DIR) v1.41.1
+	go build -tags=tools -o $@ github.com/golangci/golangci-lint/cmd/golangci-lint
 
 ## --------------------------------------
 ##@ Generate

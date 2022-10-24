@@ -27,6 +27,18 @@ need a Pull request. Contributions may include:
 * Helping to onboard new contributors
 * Other related activities
 
+## Propose a Change
+
+We suggest beginning by submitting an issue so any high level feedback can be
+addressed early, particularly if significant effort will be involved.
+
+Please submit feature requests and bug reports by using GitHub issues and filling
+in the supplied template with as much detail as you can.
+
+Before submitting an issue, please search through open ones to ensure others
+have not submitted something similar. If a similar issue exists, please add any
+additional information as a comment.
+
 ## Getting started
 
 The image-registry-operator-api project currently requires a ESXi
@@ -45,6 +57,11 @@ support to be able to create and manager them will be added soon.
 
 Install the latest stable version of
 [kubebuilder tools](https://storage.googleapis.com/kubebuilder-tools/)
+Package envtest provides libraries for integration testing by starting
+a local control plane Control plane binaries (etcd and kube-apiserver)
+are loaded by default from /usr/local/kubebuilder/bin. This can be
+overridden by setting the KUBEBUILDER_ASSETS environment variable, or
+by directly creating a ControlPlane for the Environment to use.
 
 ### Check your client access by viewing ContentLibraries in the target cluster
 
@@ -57,6 +74,17 @@ kubectl get contentlibraries
 cd hack/samples
 make all
 bin/list-ctrl
+
+## Development Flow
+
+Before submitting a pull request, please make sure you verify the changes
+locally. The `Makefile` in this repository provides useful targets such as
+`all`, `generate`, `lint` and `list-ctrl` to make verification easier.
+
+After adding or modifying the APIs build the `generate' target and verify the
+generated CRDs under `config/crd/bases' folder. Add or modify the sample 
+controller to test the changes under 'hack/samples/controller' folder
+and execute the binary to verify the changes.
 
 ## Contribution Flow
 
@@ -99,4 +127,3 @@ any API changes.
 The best way to reach us with a question when contributing is to ask on:
 
 * The original GitHub issue
-

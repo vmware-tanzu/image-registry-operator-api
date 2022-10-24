@@ -1,6 +1,7 @@
 // Copyright (c) 2022 VMware, Inc. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// Package v1alpha1 contains the v1alpha1 version of the image-registry-operator APIs.
 package v1alpha1
 
 import (

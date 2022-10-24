@@ -1,6 +1,6 @@
 module github.com/vmware-tanzu/image-registry-operator-api/hack/samples
 
-go 1.17
+go 1.18
 
 // The generated client is not part of the release, so point to the local version that includes the generated code
 // Note also that image-registry-operator-api is not specified in require the samples automatically pull in the latest
