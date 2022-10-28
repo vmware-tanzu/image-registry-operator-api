@@ -53,21 +53,18 @@ objects that exist in the target cluster and ContentLibrary and
 ContentLibraryItem objects that exist in the target namespace. The
 support to be able to create and manager them will be added soon.
 
-### Install kubebuilder tools
+### Testing sample code
 
-Install the latest stable version of
-[kubebuilder tools](https://storage.googleapis.com/kubebuilder-tools/)
 Package envtest provides libraries for integration testing by starting
 a local control plane Control plane binaries (etcd and kube-apiserver)
 are loaded by default from /usr/local/kubebuilder/bin. This can be
 overridden by setting the KUBEBUILDER_ASSETS environment variable, or
 by directly creating a ControlPlane for the Environment to use.
 
-### Check your client access by viewing ContentLibraries in the target cluster
-
-```bash
-kubectl get contentlibraries
-```
+By building the list-ctrl target, the tools target gets built too
+and the kubebuiler tool binaries are downloaded to the tools/bin
+folder and the KUBEBUILDER_ASSETS points to the location where the binaries
+are downloaded.
 
 ### Build and Test the sample code
 

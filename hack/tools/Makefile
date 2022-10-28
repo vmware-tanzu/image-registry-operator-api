@@ -9,8 +9,12 @@ SHELL := /usr/bin/env bash
 # Active module mode, as we use go modules to manage dependencies
 export GO111MODULE := on
 
+# ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
+ENVTEST_K8S_VERSION = 1.25.0
+
 # Directories.
 BIN_DIR := bin
+TOOLS_BIN_DIR = $(shell pwd)/$(BIN_DIR)
 
 HOST_OS=$(shell go env GOOS)
 HOST_ARCH=$(shell go env GOARCH)
@@ -18,6 +22,7 @@ HOST_ARCH=$(shell go env GOARCH)
 # Binaries.
 CONTROLLER_GEN  := $(BIN_DIR)/controller-gen
 GOLANGCI_LINT   := $(BIN_DIR)/golangci-lint
+SETUP_ENVTEST   := $(BIN_DIR)/setup-envtest
 
 ## --------------------------------------
 ##@ Help
@@ -39,6 +44,12 @@ $(CONTROLLER_GEN): go.mod
 golangci-lint: $(GOLANGCI_LINT) ## Install golangci-lint
 $(GOLANGCI_LINT):
 	go build -tags=tools -o $@ github.com/golangci/golangci-lint/cmd/golangci-lint
+
+.PHONY: $(SETUP_ENVTEST)
+setup-envtest: $(SETUP_ENVTEST) ## Install envtest
+$(SETUP_ENVTEST):
+	GOBIN=$(TOOLS_BIN_DIR) go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest
+	./$(BIN_DIR)/setup-envtest --bin-dir $(TOOLS_BIN_DIR) -p path use
 
 ## --------------------------------------
 ##@ Generate

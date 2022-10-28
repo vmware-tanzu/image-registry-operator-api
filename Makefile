@@ -20,6 +20,7 @@ export PATH := $(abspath $(BIN_DIR)):$(abspath $(TOOLS_BIN_DIR)):$(abspath $SAMP
 # Tooling binaries
 CONTROLLER_GEN     := $(TOOLS_BIN_DIR)/controller-gen
 GOLANGCI_LINT      := $(TOOLS_BIN_DIR)/golangci-lint
+SETUP_ENVTEST      := $(TOOLS_BIN_DIR)/setup-envtest
 
 # Allow overriding manifest generation destination directory
 MANIFEST_ROOT ?= config
@@ -39,7 +40,7 @@ help: ## Display this help
 ##@ Tooling
 ## --------------------------------------
 
-TOOLING_BINARIES := $(CONTROLLER_GEN) $(GOLANGCI_LINT)
+TOOLING_BINARIES := $(CONTROLLER_GEN) $(GOLANGCI_LINT) $(SETUP_ENVTEST)
 tools: $(TOOLING_BINARIES) ## Build tooling binaries
 .PHONY: $(TOOLING_BINARIES)
 $(TOOLING_BINARIES):
@@ -85,6 +86,7 @@ generate-manifests: $(CONTROLLER_GEN) ## Generate manifests e.g. CRD, RBAC etc.
 
 .PHONY: list-ctrl
 list-ctrl: ## Build list sample with controller client
+	$(MAKE) tools
 	cd $(SAMPLES_DIR); make $@
 
 ## --------------------------------------

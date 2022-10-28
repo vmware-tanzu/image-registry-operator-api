@@ -8,11 +8,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 
 	"github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha1"
 
+	core "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
+	k8sRuntime "k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/rest"
 
 	ctrlClient "sigs.k8s.io/controller-runtime/pkg/client"
@@ -21,9 +23,9 @@ import (
 
 var testEnv *envtest.Environment
 
-const namespace string = "default"
+const ENVTEST_K8S_VERSION string = "1.25.0"
 
-// List ContentLibraries in a target cluster to stdout using a controller client
+// List ContentLibraries in a target namespace to stdout using a controller client
 func main() {
 	fmt.Printf("Starting test env...\n")
 	testClient, err := startTestEnv()
@@ -41,11 +43,18 @@ func main() {
 	}
 
 	fmt.Printf("Populating test env...\n")
-	err = populateTestEnv(imgRegOpClient, "test-cl-1")
+	fmt.Printf("Creating test namespace...\n")
+	namespaceName := "test-ns"
+	err = createTestNamespace(imgRegOpClient, namespaceName)
+	if err != nil {
+                panic(err)
+        }
+	fmt.Printf("Creating content library resources...\n")
+	err = populateTestEnv(imgRegOpClient, "test-cl-1", namespaceName)
 	if err != nil {
 		panic(err)
 	}
-	err = populateTestEnv(imgRegOpClient, "test-cl-2")
+	err = populateTestEnv(imgRegOpClient, "test-cl-2", namespaceName)
 	if err != nil {
 		panic(err)
 	}
@@ -63,8 +72,9 @@ func main() {
 
 // Get a image-registry-operator-api client from the generated clientset
 func getImgRegOpClient(config *rest.Config) (ctrlClient.Client, error) {
-	scheme := runtime.NewScheme()
+	scheme := k8sRuntime.NewScheme()
 	_ = v1alpha1.AddToScheme(scheme)
+	_ = core.AddToScheme(scheme)
 	client, err := ctrlClient.New(config, ctrlClient.Options{
 		Scheme: scheme,
 	})
@@ -77,18 +87,17 @@ func startTestEnv() (*rest.Config, error) {
 		panic(err)
 	}
 	crd_filepath := filepath.Join(dir, "..", "..", "..", "config", "crd", "bases")
-	fmt.Println("CRD filepath: " + crd_filepath)
-
+	kubebuilder_tools_filepath := filepath.Join(dir, "..", "..", "tools", "bin", "k8s", ENVTEST_K8S_VERSION + "-" + runtime.GOOS + "-" + runtime.GOARCH)
+	os.Setenv("KUBEBUILDER_ASSETS", kubebuilder_tools_filepath)
 	testEnv = &envtest.Environment{
 		CRDDirectoryPaths: []string{
 			crd_filepath,
 		},
 	}
-
 	return testEnv.Start()
 }
 
-func populateTestEnv(client ctrlClient.Client, name string) error {
+func populateTestEnv(client ctrlClient.Client, name string, namespace string) error {
 	newCL := v1alpha1.ContentLibrary{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      name,
@@ -96,4 +105,12 @@ func populateTestEnv(client ctrlClient.Client, name string) error {
 		},
 	}
 	return client.Create(context.TODO(), &newCL)
+}
+
+func createTestNamespace(client ctrlClient.Client, namespace string) error {
+	ns := &core.Namespace{}
+	*ns = core.Namespace{
+		ObjectMeta: metav1.ObjectMeta{Name: namespace},
+	}
+	return client.Create(context.TODO(), ns)
 }
