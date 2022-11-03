@@ -42,7 +42,7 @@ additional information as a comment.
 ## Getting started
 
 The image-registry-operator-api project currently requires a ESXi
-cluster in vSphere 7 with Kubernetes.
+cluster in vSphere 8 with Kubernetes.
 
 What this means in functional terms is that you can manage workloads
 in a given Workload Namespace using a Kubernetes client connected
@@ -51,7 +51,7 @@ vSphere cluster. The image-registry-operator-api APIs currently allow
 you to monitor ClusterContentLibrary and ClusterContentLibraryItem
 objects that exist in the target cluster and ContentLibrary and
 ContentLibraryItem objects that exist in the target namespace. The
-support to be able to create and manager them will be added soon.
+support to be able to create and manage them will be added soon.
 
 ### Testing sample code
 
@@ -59,7 +59,7 @@ Package envtest provides libraries for integration testing by starting
 a local control plane Control plane binaries (etcd and kube-apiserver)
 are loaded by default from /usr/local/kubebuilder/bin. This can be
 overridden by setting the KUBEBUILDER_ASSETS environment variable, or
-by directly creating a ControlPlane for the Environment to use.
+by directly creating a control plane for the Environment to use.
 
 By building the list-ctrl target, the tools target gets built too
 and the kubebuiler tool binaries are downloaded to the tools/bin
