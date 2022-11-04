@@ -46,8 +46,8 @@ cluster in vSphere 8 with Kubernetes.
 
 What this means in functional terms is that you can manage workloads
 in a given Workload Namespace using a Kubernetes client connected
-directly to the an embedded Kubernetes API Server running in the
-vSphere cluster. The image-registry-operator-api APIs currently allow
+directly to an embedded Kubernetes API Server running in the
+vSphere cluster. The image registry operator APIs currently allow
 you to monitor ClusterContentLibrary and ClusterContentLibraryItem
 objects that exist in the target cluster and ContentLibrary and
 ContentLibraryItem objects that exist in the target namespace. The
@@ -56,13 +56,13 @@ support to be able to create and manage them will be added soon.
 ### Testing sample code
 
 Package envtest provides libraries for integration testing by starting
-a local control plane Control plane binaries (etcd and kube-apiserver)
+a local control plane. Control plane binaries (etcd and kube-apiserver)
 are loaded by default from /usr/local/kubebuilder/bin. This can be
 overridden by setting the KUBEBUILDER_ASSETS environment variable, or
-by directly creating a control plane for the Environment to use.
+by directly creating a control plane for the environment to use.
 
-By building the list-ctrl target, the tools target gets built too
-and the kubebuiler tool binaries are downloaded to the tools/bin
+By building the `list-ctrl` target, the tools target gets built too
+and the kubebuilder tool binaries are downloaded to the `tools/bin`
 folder and the KUBEBUILDER_ASSETS points to the location where the binaries
 are downloaded.
 
@@ -77,9 +77,9 @@ Before submitting a pull request, please make sure you verify the changes
 locally. The `Makefile` in this repository provides useful targets such as
 `all`, `generate`, `lint` and `list-ctrl` to make verification easier.
 
-After adding or modifying the APIs build the `generate' target and verify the
-generated CRDs under `config/crd/bases' folder. Add or modify the sample
-controller to test the changes under 'hack/samples/controller' folder
+After adding or modifying the APIs build the `generate` target and verify the
+generated CRDs under `config/crd/bases` folder. Add or modify the sample
+controller to test the changes under `hack/samples/controller` folder
 and execute the binary to verify the changes.
 
 ## Contribution Flow
@@ -120,6 +120,4 @@ any API changes.
 
 ## Ask for Help
 
-The best way to reach us with a question when contributing is to ask on:
-
-* The original GitHub issue
+The best way to reach us with a question when contributing is to ask on the original GitHub issue.
