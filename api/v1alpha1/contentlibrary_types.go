@@ -115,6 +115,11 @@ type ContentLibraryStatus struct {
 	// +optional
 	SubscriptionInfo *SubscriptionInfo `json:"subscriptionInfo,omitempty"`
 
+	// SecurityPolicyID defines the security policy applied to this library.
+	// Setting this field will make the library secure.
+	// +optional
+	SecurityPolicyID string `json:"securityPolicyID,omitempty"`
+
 	// CreationTime indicates the date and time when this library was created.
 	// +required
 	CreationTime string `json:"creationTime"`

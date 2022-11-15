@@ -53,6 +53,14 @@ type ClusterContentLibraryItemStatus struct {
 	// +kubebuilder:default=false
 	Cached bool `json:"cached"`
 
+	// SecurityCompliance shows the security compliance of the library item.
+	// +optional
+	SecurityCompliance *bool `json:"securityCompliance"`
+
+	// CertificateVerificationInfo shows the certificate verification status and the signing certificate.
+	// +optional
+	CertificateVerificationInfo *CertificateVerificationInfo `json:"certificateVerificationInfo,omitempty"`
+
 	// Ready denotes that the library item is ready to be used.
 	// +required
 	// +kubebuilder:default=false
