@@ -6,7 +6,7 @@ The image-registry-operator-api provides the object model and generated
 client libraries for the VM Image Service project, which is part of
 vSphere's [Kubernetes](https://kubernetes.io) support.
 
-Image Service Operator allows users to manage the lifecycle of vSphere
+VM Image Service Operator allows users to manage the lifecycle of vSphere
 Content Library Items using a declarative Kubernetes consumption
 model and is an integral part of Project Pacific in vSphere with Kubernetes.
 
@@ -29,7 +29,7 @@ cluster in vSphere 8 with Kubernetes.
 What this means in functional terms is that you can manage workloads
 in a given Workload Namespace using a Kubernetes client connected
 directly to an embedded Kubernetes API Server running in the
-vSphere cluster. The image service operator APIs currently
+vSphere cluster. The VM Image Service operator APIs currently
 allow you to monitor ClusterContentLibrary and ClusterContentLibraryItem
 objects that exist in the target cluster and ContentLibrary and
 ContentLibraryItem objects that exist in the target namespace.
@@ -65,4 +65,4 @@ refer to [CONTRIBUTING.md](CONTRIBUTING_CLA.md).
 
 ## License
 
-Image Service Operator API is licensed under the [Apache License, version 2.0](LICENSE)
+VM Image Service Operator API is licensed under the [Apache License, version 2.0](LICENSE)
