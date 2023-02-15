@@ -180,7 +180,7 @@ type ContentLibraryList struct {
 type ClusterContentLibrarySpec struct {
 	// UUID is the identifier which uniquely identifies the library in vCenter. This field is immutable.
 	// +required
-	UUID string `json:"uuid"`
+	UUID types.UID `json:"uuid"`
 }
 
 func (ccl *ClusterContentLibrary) GetConditions() Conditions {

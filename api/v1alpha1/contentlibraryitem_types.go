@@ -113,7 +113,7 @@ type ContentLibraryItemStatus struct {
 
 	// Files represent zero, one or more files belonging to the content library item in vCenter.
 	// +optional
-	// Files []string `json:"files,omitempty"`
+	Files []string `json:"files,omitempty"`
 
 	// CreationTime indicates the date and time when this library item was created in vCenter.
 	// +optional

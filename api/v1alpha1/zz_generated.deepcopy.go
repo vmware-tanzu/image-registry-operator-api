@@ -322,6 +322,11 @@ func (in *ContentLibraryItemStatus) DeepCopyInto(out *ContentLibraryItemStatus) 
 		*out = new(CertificateVerificationInfo)
 		(*in).DeepCopyInto(*out)
 	}
+	if in.Files != nil {
+		in, out := &in.Files, &out.Files
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	in.CreationTime.DeepCopyInto(&out.CreationTime)
 	in.LastModifiedTime.DeepCopyInto(&out.LastModifiedTime)
 	in.LastSyncTime.DeepCopyInto(&out.LastSyncTime)
