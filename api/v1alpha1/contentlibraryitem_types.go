@@ -52,6 +52,26 @@ type CertificateVerificationInfo struct {
 	CertChain []string `json:"certChain,omitempty"`
 }
 
+type FileInfo struct {
+	// Name specifies the name of the file.
+	// +optional
+	Name string `json:"name,omitempty"`
+
+	// Size indicates the library item file size in bytes in vCenter.
+	// +optional
+	Size resource.Quantity `json:"size,omitempty"`
+
+	// Version indicates the version of the library item file in vCenter.
+	// This value is incremented when a new copy of the file is uploaded to vCenter.
+	// +optional
+	Version string `json:"version,omitempty"`
+
+	// Cached indicates if the library item file is on disk in vCenter.
+	// +optional
+	// +kubebuilder:default=false
+	Cached bool `json:"cached,omitempty"`
+}
+
 // ContentLibraryItemSpec defines the desired state of a ContentLibraryItem.
 type ContentLibraryItemSpec struct {
 	// UUID is the identifier which uniquely identifies the library item in vCenter. This field is immutable.
@@ -74,12 +94,12 @@ type ContentLibraryItemStatus struct {
 	Description string `json:"description,omitempty"`
 
 	// MetadataVersion indicates the version of the library item metadata in vCenter.
-	// This integer value is incremented when the library item properties such as name or description are changed in vCenter.
+	// This value is incremented when the library item properties such as name or description are changed in vCenter.
 	// +optional
 	MetadataVersion string `json:"metadataVersion,omitempty"`
 
 	// ContentVersion indicates the version of the library item content in vCenter.
-	// This integer value is incremented when the files comprising the content library item are changed in vCenter.
+	// This value is incremented when the files comprising the content library item are changed in vCenter.
 	// +optional
 	ContentVersion string `json:"contentVersion,omitempty"`
 
@@ -111,9 +131,9 @@ type ContentLibraryItemStatus struct {
 	// +kubebuilder:default=false
 	Ready bool `json:"ready,omitempty"`
 
-	// Files represent zero, one or more files belonging to the content library item in vCenter.
+	// FileInfo represents zero, one or more files belonging to the content library item in vCenter.
 	// +optional
-	Files []string `json:"files,omitempty"`
+	FileInfo []FileInfo `json:"fileInfo,omitempty"`
 
 	// CreationTime indicates the date and time when this library item was created in vCenter.
 	// +optional
@@ -148,7 +168,7 @@ func (contentLibraryItem *ContentLibraryItem) SetConditions(conditions Condition
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="ContentLibraryRef",type="string",JSONPath=".status.contentLibraryRef.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
-// +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.ready"
+// +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.conditions[?(.type==\"Ready\")].status | bool()"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ContentLibraryItem is the schema for the content library item API.
@@ -183,7 +203,7 @@ func (cclItem *ClusterContentLibraryItem) SetConditions(conditions Conditions) {
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="ClusterContentLibraryRef",type="string",JSONPath=".status.clusterContentLibraryRef"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
-// +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.ready"
+// +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.conditions[?(.type==\"Ready\")].status | bool()"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ClusterContentLibraryItem is the schema for the content library item API at the cluster scope.

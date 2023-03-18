@@ -101,7 +101,7 @@ type ContentLibraryStatus struct {
 	// +optional
 	StorageBacking *StorageBacking `json:"storageBacking,omitempty"`
 
-	// Version is a number that can identify metadata changes. This integer value is incremented when the library
+	// Version is a number that can identify metadata changes. This value is incremented when the library
 	// properties such as name or description are changed in vCenter.
 	// +optional
 	Version string `json:"version,omitempty"`
