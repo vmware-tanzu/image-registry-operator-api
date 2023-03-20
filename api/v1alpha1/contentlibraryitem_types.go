@@ -53,7 +53,7 @@ type CertificateVerificationInfo struct {
 }
 
 type FileInfo struct {
-	// Name specifies the name of the file.
+	// Name specifies the name of the file in vCenter.
 	// +optional
 	Name string `json:"name,omitempty"`
 
@@ -125,12 +125,6 @@ type ContentLibraryItemStatus struct {
 	// +optional
 	CertificateVerificationInfo *CertificateVerificationInfo `json:"certificateVerificationInfo,omitempty"`
 
-	// Ready denotes that the library item is ready to be used.
-	// This flag is set only after all the files associated with the content library item have been uploaded to vCenter.
-	// +optional
-	// +kubebuilder:default=false
-	Ready bool `json:"ready,omitempty"`
-
 	// FileInfo represents zero, one or more files belonging to the content library item in vCenter.
 	// +optional
 	FileInfo []FileInfo `json:"fileInfo,omitempty"`
@@ -168,7 +162,7 @@ func (contentLibraryItem *ContentLibraryItem) SetConditions(conditions Condition
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="ContentLibraryRef",type="string",JSONPath=".status.contentLibraryRef.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
-// +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.conditions[?(.type==\"Ready\")].status | bool()"
+// +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.conditions[?(.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ContentLibraryItem is the schema for the content library item API.
