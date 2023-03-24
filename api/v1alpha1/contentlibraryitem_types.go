@@ -41,6 +41,7 @@ const (
 	CertVerificationStatusUntrusted CertVerificationStatus = "UNTRUSTED"
 )
 
+// CertificateVerificationInfo shows the certificate verification status and the signing certificate.
 type CertificateVerificationInfo struct {
 	// Status shows the certificate verification status of the library item.
 	// +kubebuilder:validation:Enum=NOT_AVAILABLE;VERIFIED;INTERNAL;VERIFICATION_FAILURE;VERIFICATION_IN_PROGRESS;UNTRUSTED
@@ -52,6 +53,7 @@ type CertificateVerificationInfo struct {
 	CertChain []string `json:"certChain,omitempty"`
 }
 
+// FileInfo represents zero, one or more files belonging to the content library item in vCenter.
 type FileInfo struct {
 	// Name specifies the name of the file in vCenter.
 	// +optional
@@ -198,6 +200,8 @@ func (cclItem *ClusterContentLibraryItem) SetConditions(conditions Conditions) {
 // +kubebuilder:printcolumn:name="ClusterContentLibraryRef",type="string",JSONPath=".status.clusterContentLibraryRef"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Cached",type="boolean",JSONPath=".status.cached"
+// +kubebuilder:printcolumn:name="Size",type="integer",JSONPath=".status.size"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ClusterContentLibraryItem is the schema for the content library item API at the cluster scope.
