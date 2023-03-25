@@ -1,4 +1,4 @@
-// Copyright (c) 2023 VMware, Inc. All Rights Reserved.
+// Copyright (c) 2022-2023 VMware, Inc. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 // Package v1alpha1 contains API Schema definitions for the imageregistry v1alpha1 API group.
