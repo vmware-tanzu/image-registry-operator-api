@@ -35,7 +35,7 @@ const (
 type StorageBacking struct {
 	// Type indicates the type of storage where the content would be stored.
 	// +kubebuilder:validation:Enum=Datastore;Other
-	// +optional
+	// +required
 	Type StorageBackingType `json:"type,omitempty"`
 
 	// DatastoreID indicates the identifier of the datastore used to store the content
@@ -48,27 +48,27 @@ type StorageBacking struct {
 type SubscriptionInfo struct {
 	// URL of the endpoint where the metadata for the remotely published library is being served.
 	// The value from PublishInfo.URL of the published library should be used while creating a subscribed library.
-	// +optional
+	// +required
 	URL string `json:"URL,omitempty"`
 
 	// OnDemand indicates whether a library item’s content will be synchronized only on demand.
-	// +optional
+	// +required
 	OnDemand bool `json:"onDemand,omitempty"`
 
 	// AutomaticSync indicates whether the library should participate in automatic library synchronization.
-	// +optional
+	// +required
 	AutomaticSync bool `json:"automaticSync,omitempty"`
 }
 
 // PublishInfo defines how the library is published so that it can be subscribed to by a remote subscribed library.
 type PublishInfo struct {
 	// Published indicates if the local library is published so that it can be subscribed to by a remote subscribed library.
-	// +optional
+	// +required
 	Published bool `json:"published,omitempty"`
 
 	// URL to which the library metadata is published by the vSphere Content Library Service.
 	// This value can be used to set the SubscriptionInfo.URL property when creating a subscribed library.
-	// +optional
+	// +required
 	URL string `json:"URL,omitempty"`
 }
 

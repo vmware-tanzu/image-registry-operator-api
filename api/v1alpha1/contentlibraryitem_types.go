@@ -56,20 +56,20 @@ type CertificateVerificationInfo struct {
 // FileInfo represents zero, one or more files belonging to the content library item in vCenter.
 type FileInfo struct {
 	// Name specifies the name of the file in vCenter.
-	// +optional
+	// +required
 	Name string `json:"name,omitempty"`
 
 	// Size indicates the library item file size in bytes in vCenter.
-	// +optional
+	// +required
 	Size resource.Quantity `json:"size,omitempty"`
 
 	// Version indicates the version of the library item file in vCenter.
 	// This value is incremented when a new copy of the file is uploaded to vCenter.
-	// +optional
+	// +required
 	Version string `json:"version,omitempty"`
 
 	// Cached indicates if the library item file is on disk in vCenter.
-	// +optional
+	// +required
 	// +kubebuilder:default=false
 	Cached bool `json:"cached,omitempty"`
 }
