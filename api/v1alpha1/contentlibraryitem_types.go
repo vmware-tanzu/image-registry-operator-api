@@ -48,7 +48,7 @@ type CertificateVerificationInfo struct {
 	// +optional
 	Status CertVerificationStatus `json:"status,omitempty"`
 
-	// CertChain shows the signing certificate in base64 encoding if the library item is signed.
+	// CertChain shows the signing certificate chain in base64 encoding if the library item is signed.
 	// +optional
 	CertChain []string `json:"certChain,omitempty"`
 }
@@ -59,9 +59,9 @@ type FileInfo struct {
 	// +required
 	Name string `json:"name"`
 
-	// Size indicates the library item file size in bytes on staorage in vCenter.
+	// SizeInBytes indicates the library item file size in bytes on storage in vCenter.
 	// +required
-	Size resource.Quantity `json:"size"`
+	SizeInBytes resource.Quantity `json:"sizeInBytes"`
 
 	// Version indicates the version of the library item file in vCenter.
 	// This value is incremented when a new copy of the file is uploaded to vCenter.
@@ -105,14 +105,14 @@ type ContentLibraryItemStatus struct {
 	// +optional
 	ContentVersion string `json:"contentVersion,omitempty"`
 
-	// Type string indicates the type of the library item in vCenter.
+	// Type indicates the type of the library item in vCenter.
 	// +kubebuilder:validation:Enum=OVF;ISO
 	// +optional
 	Type ContentLibraryItemType `json:"type,omitempty"`
 
-	// Size indicates the library item size in bytes on storage in vCenter.
+	// SizeInBytes indicates the library item size in bytes on storage in vCenter.
 	// +optional
-	Size resource.Quantity `json:"size,omitempty"`
+	SizeInBytes resource.Quantity `json:"sizeInBytes,omitempty"`
 
 	// Cached indicates if the library item files are on storage in vCenter.
 	// +optional
@@ -165,9 +165,12 @@ func (contentLibraryItem *ContentLibraryItem) SetConditions(conditions Condition
 // +kubebuilder:printcolumn:name="ContentLibraryRef",type="string",JSONPath=".status.contentLibraryRef.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Ready')].status"
+// +kubebuilder:printcolumn:name="Cached",type="boolean",JSONPath=".status.cached"
+// +kubebuilder:printcolumn:name="SizeInBytes",type="integer",JSONPath=".status.sizeInBytes"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ContentLibraryItem is the schema for the content library item API.
+// Currently, ContentLibraryItem is immutable to end users.
 type ContentLibraryItem struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -201,11 +204,11 @@ func (cclItem *ClusterContentLibraryItem) SetConditions(conditions Conditions) {
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="Cached",type="boolean",JSONPath=".status.cached"
-// +kubebuilder:printcolumn:name="Size",type="integer",JSONPath=".status.size"
+// +kubebuilder:printcolumn:name="SizeInBytes",type="integer",JSONPath=".status.sizeInBytes"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ClusterContentLibraryItem is the schema for the content library item API at the cluster scope.
-// Currently, ClusterContentLibraryItem are immutable to end users.
+// Currently, ClusterContentLibraryItem is immutable to end users.
 type ClusterContentLibraryItem struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
