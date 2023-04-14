@@ -167,6 +167,7 @@ func (contentLibraryItem *ContentLibraryItem) SetConditions(conditions Condition
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="Cached",type="boolean",JSONPath=".status.cached"
 // +kubebuilder:printcolumn:name="SizeInBytes",type="integer",JSONPath=".status.sizeInBytes"
+// +kubebuilder:printcolumn:name="SecurityCompliant",type="boolean",JSONPath=".status.securityCompliance"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ContentLibraryItem is the schema for the content library item API.
@@ -205,6 +206,7 @@ func (cclItem *ClusterContentLibraryItem) SetConditions(conditions Conditions) {
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="Cached",type="boolean",JSONPath=".status.cached"
 // +kubebuilder:printcolumn:name="SizeInBytes",type="integer",JSONPath=".status.sizeInBytes"
+// +kubebuilder:printcolumn:name="SecurityCompliant",type="boolean",JSONPath=".status.securityCompliance"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
 // ClusterContentLibraryItem is the schema for the content library item API at the cluster scope.
