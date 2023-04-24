@@ -6,15 +6,15 @@ The image-registry-operator-api provides the object model and generated
 client libraries for the VM Image Service project, which is part of
 vSphere's [Kubernetes](https://kubernetes.io) support.
 
-Image Service Operator allows users to manage the lifecycle of vSphere
+VM Image Service allows users to manage the lifecycle of vSphere
 Content Library Items using a declarative Kubernetes consumption
-model and is an integral part of Project Pacific in vSphere with Kubernetes.
+model and is an integral part of vSphere with Tanzu.
 
-The state of ContentLibrary and ContentLibraryItem CRDs in a Kubernetes
-cluster is monitored by the built-in controllers which reconcile the
+The state of `ContentLibrary` and `ContentLibraryItem` CRDs in a Supervisor
+is monitored by the built-in controllers which reconcile the
 CRD specification into Content Libraries and Content Library Items in
 vSphere. The state of the Content Libraries and Content Library Items
-in vSphere is reflected back in the ContentLibrary and ContentLibraryItem
+in vSphere is reflected back in the `ContentLibrary` and `ContentLibraryItem`
 CRD status.
 
 ## Try it out
@@ -28,11 +28,11 @@ The image-registry-operator-api project currently requires a ESXi
 cluster in vSphere 8 with Kubernetes.
 What this means in functional terms is that you can manage workloads
 in a given Workload Namespace using a Kubernetes client connected
-directly to an embedded Kubernetes API Server running in the
-vSphere cluster. The image service operator APIs currently
-allow you to monitor ClusterContentLibrary and ClusterContentLibraryItem
-objects that exist in the target cluster and ContentLibrary and
-ContentLibraryItem objects that exist in the target namespace.
+directly to an embedded Kubernetes API Server running in the Supervisor.
+The VM Image Service APIs currently allow you to monitor
+`ClusterContentLibrary` and `ClusterContentLibraryItem` objects
+that exist in the Supervisor and `ContentLibrary` and `ContentLibraryItem`
+objects that exist in the Supervisor Workload namespace.
 The support to be able to create and manage them will be added soon.
 
 ### Testing sample code
@@ -65,4 +65,4 @@ refer to [CONTRIBUTING.md](CONTRIBUTING_CLA.md).
 
 ## License
 
-Image Service Operator API is licensed under the [Apache License, version 2.0](LICENSE)
+VM Image Service API is licensed under the [Apache License, version 2.0](LICENSE)
