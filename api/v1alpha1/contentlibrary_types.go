@@ -78,11 +78,11 @@ type ContentLibrarySpec struct {
 	// +required
 	UUID types.UID `json:"uuid"`
 
-	// Writable flag indicates if the users can create new library items in this library.
+	// Writable flag indicates if users can create new library items in this library.
 	// +required
 	Writable bool `json:"writable"`
 
-	// AllowImport flag indicates if the users can import OVF/OVA templates from remote HTTPS URLs
+	// AllowImport flag indicates if users can import OVF/OVA templates from remote HTTPS URLs
 	// as new content library items in this library.
 	// +optional
 	AllowImport bool `json:"allowImport,omitempty"`
