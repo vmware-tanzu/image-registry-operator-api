@@ -78,9 +78,14 @@ type ContentLibrarySpec struct {
 	// +required
 	UUID types.UID `json:"uuid"`
 
-	// Writable flag indicates if the users can create new library items in this library.
+	// Writable flag indicates if users can create new library items in this library.
 	// +required
 	Writable bool `json:"writable"`
+
+	// AllowImport flag indicates if users can import OVF/OVA templates from remote HTTPS URLs
+	// as new content library items in this library.
+	// +optional
+	AllowImport bool `json:"allowImport,omitempty"`
 }
 
 // ContentLibraryStatus defines the observed state of ContentLibrary.
@@ -154,6 +159,7 @@ func (contentLibrary *ContentLibrary) SetConditions(conditions Conditions) {
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Writable",type="boolean",JSONPath=".spec.writable"
+// +kubebuilder:printcolumn:name="AllowImport",type="boolean",JSONPath=".spec.allowImport"
 // +kubebuilder:printcolumn:name="StorageType",type="string",JSONPath=".status.storageBacking.type"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
