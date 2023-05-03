@@ -166,7 +166,7 @@ func (contentLibraryItem *ContentLibraryItem) SetConditions(conditions Condition
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="Cached",type="boolean",JSONPath=".status.cached"
-// +kubebuilder:printcolumn:name="SizeInBytes",type="integer",JSONPath=".status.sizeInBytes"
+// +kubebuilder:printcolumn:name="SizeInBytes",type="string",JSONPath=".status.sizeInBytes"
 // +kubebuilder:printcolumn:name="SecurityCompliant",type="boolean",JSONPath=".status.securityCompliance"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
@@ -201,11 +201,11 @@ func (cclItem *ClusterContentLibraryItem) SetConditions(conditions Conditions) {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:scope=Cluster,shortName=cclitem
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
-// +kubebuilder:printcolumn:name="ClusterContentLibraryRef",type="string",JSONPath=".status.clusterContentLibraryRef"
+// +kubebuilder:printcolumn:name="ClusterContentLibraryRef",type="string",JSONPath=".status.contentLibraryRef.Name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="Cached",type="boolean",JSONPath=".status.cached"
-// +kubebuilder:printcolumn:name="SizeInBytes",type="integer",JSONPath=".status.sizeInBytes"
+// +kubebuilder:printcolumn:name="SizeInBytes",type="string",JSONPath=".status.sizeInBytes"
 // +kubebuilder:printcolumn:name="SecurityCompliant",type="boolean",JSONPath=".status.securityCompliance"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
