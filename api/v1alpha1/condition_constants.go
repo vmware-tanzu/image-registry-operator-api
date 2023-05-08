@@ -22,4 +22,5 @@ const (
 const (
 	ClusterContentLibraryRefValidationFailedReason = "ClusterContentLibraryRefValidationFailed"
 	ContentLibraryRefValidationFailedReason        = "ContentLibraryRefValidationFailed"
+	ContentLibraryItemFileUnavailableReason        = "ContentLibraryItemFileUnavailable"
 )
