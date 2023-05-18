@@ -4,7 +4,7 @@
 
 The image-registry-operator-api provides the object model and generated
 client libraries for VM Image Service, which is part of
-[vSphere with Tanzu] ([https://kubernetes.io](https://docs.vmware.com/en/VMware-vSphere-with-Tanzu/index.html)).
+[vSphere with Tanzu](https://docs.vmware.com/en/VMware-vSphere-with-Tanzu/index.html).
 
 VM Image Service allows users to manage the lifecycle of vSphere
 Content Library Items using a declarative Kubernetes consumption
