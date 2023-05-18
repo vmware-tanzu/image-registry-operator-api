@@ -4,7 +4,7 @@
 
 The image-registry-operator-api provides the object model and generated
 client libraries for VM Image Service, which is part of
-vSphere's [Kubernetes](https://kubernetes.io) support.
+[vSphere with Tanzu] ([https://kubernetes.io](https://docs.vmware.com/en/VMware-vSphere-with-Tanzu/index.html)).
 
 VM Image Service allows users to manage the lifecycle of vSphere
 Content Library Items using a declarative Kubernetes consumption
@@ -24,7 +24,7 @@ image-registry-operator-api into your project.
 
 ### Prerequisites
 
-VM Image Service currently requires a ESXi cluster in vSphere 8 with Kubernetes.
+VM Image Service currently requires vSphere with Tanzu.
 What this means in functional terms is that you can manage workloads
 in a given Workload Namespace using a Kubernetes client connected
 directly to an embedded Kubernetes API Server running in the Supervisor.
