@@ -57,7 +57,7 @@ make list-ctrl
 
 The image-registry-operator-api project team welcomes contributions
 from the community. Before you start working with image-registry-operator-api,
-please read our [Developer Certificate of Origin](https://cla.vmware.com/dco).
+please read our Contributor License Agreement [CLA](https://cla.vmware.com/cla/1/preview).
 All contributions to this repository must be signed as described on that page.
 Your signature certifies that you wrote the patch or have the right to pass
 it on as an open-source patch. For more detailed information,
