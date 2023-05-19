@@ -136,7 +136,7 @@ func (clItemImportRequest *ContentLibraryItemImportRequest) SetConditions(condit
 // +kubebuilder:resource:scope=Namespaced,shortName=clitemimport
 // +kubebuilder:subresource:status
 // +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.ready"
-// +kubebuilder:printcolumn:name="ContentLibraryRef",,type="string",JSONPath=".spec.target.library.name"
+// +kubebuilder:printcolumn:name="ContentLibraryRef",type="string",JSONPath=".spec.target.library.name"
 // +kubebuilder:printcolumn:name="ContentLibraryItemRef",type="string",JSONPath=".status.itemRef.name"
 
 // ContentLibraryItemImportRequest defines the information necessary to import a VM image
