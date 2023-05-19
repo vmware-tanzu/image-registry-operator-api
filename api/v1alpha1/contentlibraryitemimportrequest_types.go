@@ -21,7 +21,7 @@ type ContentLibraryItemImportRequestSource struct {
 type ContentLibraryItemImportRequestTargetItem struct {
 	// Name is the name of the new content library item that will be created in vSphere.
 	// If omitted, the content library item will be created with the same name as the name
-	// of the image specified in the spec.source.url if an item with the same name does not exist
+	// of the image specified in the spec.source.url, only if an item with the same name does not exist
 	// in the specified Content Library in vSphere.
 	// +optional
 	Name string `json:"name,omitempty"`
@@ -35,6 +35,9 @@ type ContentLibraryItemImportRequestTargetItem struct {
 type ContentLibraryItemImportRequestTarget struct {
 	// Item contains information about the content library item to which
 	// the template will be imported in vSphere.
+	// If omitted, the content library item will be created with the same name as the name
+	// of the image specified in the spec.source.url, only if an item with the same name does not exist
+	// in the specified Content Library in vSphere.
 	// +optional
 	Item ContentLibraryItemImportRequestTargetItem `json:"item,omitempty"`
 
@@ -79,6 +82,10 @@ type ContentLibraryItemFileUploadStatus struct {
 	// Completed lists the names of files that have been successfully imported into vSphere.
 	// +optional
 	Completed []string `json:"completed,omitempty"`
+
+	// Failed lists the names of files that failed to be imported into vSphere.
+	// +optional
+	Failed []string `json:"failed,omitempty"`
 }
 
 // ContentLibraryItemImportRequestStatus defines the observed state of a
@@ -117,7 +124,7 @@ type ContentLibraryItemImportRequestStatus struct {
 
 	// FileUpload indicates the upload status of files belonging to the template.
 	// +optional
-	FileUpload *ContentLibraryItemFileUploadStatus `json:"fileUpload,omitempty"`
+	FileUploadStatus *ContentLibraryItemFileUploadStatus `json:"fileUploadStatus,omitempty"`
 
 	// Conditions describes the current condition information of the ContentLibraryItemImportRequest.
 	// +optional
