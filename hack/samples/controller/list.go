@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"runtime"
 
 	"github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha1"
 
@@ -22,8 +21,6 @@ import (
 )
 
 var testEnv *envtest.Environment
-
-const ENVTEST_K8S_VERSION string = "1.25.0"
 
 // List ContentLibraries in a target namespace to stdout using a controller client
 func main() {
@@ -47,8 +44,8 @@ func main() {
 	namespaceName := "test-ns"
 	err = createTestNamespace(imgRegOpClient, namespaceName)
 	if err != nil {
-                panic(err)
-        }
+		panic(err)
+	}
 	fmt.Printf("Creating content library resources...\n")
 	err = populateTestEnv(imgRegOpClient, "test-cl-1", namespaceName)
 	if err != nil {
@@ -87,7 +84,7 @@ func startTestEnv() (*rest.Config, error) {
 		panic(err)
 	}
 	crd_filepath := filepath.Join(dir, "..", "..", "..", "config", "crd", "bases")
-	kubebuilder_tools_filepath := filepath.Join(dir, "..", "..", "tools", "bin", "k8s", ENVTEST_K8S_VERSION + "-" + runtime.GOOS + "-" + runtime.GOARCH)
+	kubebuilder_tools_filepath := filepath.Join(dir, "..", "..", "tools", "bin")
 	os.Setenv("KUBEBUILDER_ASSETS", kubebuilder_tools_filepath)
 	testEnv = &envtest.Environment{
 		CRDDirectoryPaths: []string{
