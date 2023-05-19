@@ -3,8 +3,8 @@
 ## Overview
 
 The image-registry-operator-api provides the object model and generated
-client libraries for the VM Image Service project, which is part of
-vSphere's [Kubernetes](https://kubernetes.io) support.
+client libraries for VM Image Service, which is part of
+[vSphere with Tanzu](https://docs.vmware.com/en/VMware-vSphere-with-Tanzu/index.html).
 
 VM Image Service allows users to manage the lifecycle of vSphere
 Content Library Items using a declarative Kubernetes consumption
@@ -24,12 +24,11 @@ image-registry-operator-api into your project.
 
 ### Prerequisites
 
-The image-registry-operator-api project currently requires a ESXi
-cluster in vSphere 8 with Kubernetes.
+VM Image Service currently requires vSphere with Tanzu.
 What this means in functional terms is that you can manage workloads
 in a given Workload Namespace using a Kubernetes client connected
 directly to an embedded Kubernetes API Server running in the Supervisor.
-The VM Image Service APIs currently allow you to monitor
+VM Image Service currently allows you to monitor
 `ClusterContentLibrary` and `ClusterContentLibraryItem` objects
 that exist in the Supervisor and `ContentLibrary` and `ContentLibraryItem`
 objects that exist in the Supervisor Workload namespace.
@@ -55,8 +54,8 @@ make list-ctrl
 
 ## Contributing
 
-The image-registry-operator-api project team welcomes contributions
-from the community. Before you start working with image-registry-operator-api,
+The VM Image Service team welcomes contributions from the community.
+Before you start working with image-registry-operator-api,
 please read our Contributor License Agreement [CLA](https://cla.vmware.com/cla/1/preview).
 All contributions to this repository must be signed as described on that page.
 Your signature certifies that you wrote the patch or have the right to pass
@@ -65,4 +64,4 @@ refer to [CONTRIBUTING.md](CONTRIBUTING_CLA.md).
 
 ## License
 
-VM Image Service API is licensed under the [Apache License, version 2.0](LICENSE)
+The image-registry-operator-api is licensed under the [Apache License, version 2.0](LICENSE)
