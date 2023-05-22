@@ -106,22 +106,6 @@ type ContentLibraryItemImportRequestStatus struct {
 	// +optional
 	StartTime metav1.Time `json:"startTime,omitempty"`
 
-	// Ready is set to true only when the content library item has been
-	// created and the template is imported successfully in vSphere
-	// and the new ContentLibraryItem resource is ready.
-	// Readiness is determined by waiting until there is status condition
-	// Type=Complete and ensuring it and all other status conditions present
-	// have a Status=True. The conditions present will be:
-	//   * SourceValid
-	//   * TargetValid
-	//   * ContentLibraryItemCreated
-	//   * TemplateUploaded
-	//   * ContentLibraryItemReady
-	//   * Complete
-	//
-	// +optional
-	Ready bool `json:"ready,omitempty"`
-
 	// FileUpload indicates the upload status of files belonging to the template.
 	// +optional
 	FileUploadStatus *ContentLibraryItemFileUploadStatus `json:"fileUploadStatus,omitempty"`
@@ -142,9 +126,9 @@ func (clItemImportRequest *ContentLibraryItemImportRequest) SetConditions(condit
 // +kubebuilder:object:root=true
 // +kubebuilder:resource:scope=Namespaced,shortName=clitemimport
 // +kubebuilder:subresource:status
-// +kubebuilder:printcolumn:name="Ready",type="boolean",JSONPath=".status.ready"
 // +kubebuilder:printcolumn:name="ContentLibraryRef",type="string",JSONPath=".spec.target.library.name"
 // +kubebuilder:printcolumn:name="ContentLibraryItemRef",type="string",JSONPath=".status.itemRef.name"
+// +kubebuilder:printcolumn:name="Ready",type="string",JSONPath=".status.conditions[?(.type=='Complete')].status"
 
 // ContentLibraryItemImportRequest defines the information necessary to import a VM image
 // template as a ContentLibraryItem to a Content Library in vSphere.
