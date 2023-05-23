@@ -38,8 +38,8 @@ type ContentLibraryItemImportRequestTarget struct {
 	// the template will be imported in vSphere.
 	// If omitted, the content library item will be created with the same name as the name
 	// of the image specified in the spec.source.url in the specified vSphere Content Library.
-        // If an item with the same name already exists in the specified vSphere Content Library,
-        // the TargetValid condition will become false in the status.
+	// If an item with the same name already exists in the specified vSphere Content Library,
+	// the TargetValid condition will become false in the status.
 	// +optional
 	Item ContentLibraryItemImportRequestTargetItem `json:"item,omitempty"`
 
