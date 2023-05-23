@@ -21,12 +21,13 @@ type ContentLibraryItemImportRequestSource struct {
 type ContentLibraryItemImportRequestTargetItem struct {
 	// Name is the name of the new content library item that will be created in vSphere.
 	// If omitted, the content library item will be created with the same name as the name
-	// of the image specified in the spec.source.url, only if an item with the same name does not exist
-	// in the specified Content Library in vSphere.
+	// of the image specified in the spec.source.url in the specified vSphere Content Library.
+	// If an item with the same name already exists in the specified vSphere Content Library,
+	// the TargetValid condition will become false in the status.
 	// +optional
 	Name string `json:"name,omitempty"`
 
-	// Description is a description for the content library item that will be created in vSphere.
+	// Description is a description for the vSphere Content Library Item.
 	// +optional
 	Description string `json:"description,omitempty"`
 }
@@ -36,8 +37,9 @@ type ContentLibraryItemImportRequestTarget struct {
 	// Item contains information about the content library item to which
 	// the template will be imported in vSphere.
 	// If omitted, the content library item will be created with the same name as the name
-	// of the image specified in the spec.source.url, only if an item with the same name does not exist
-	// in the specified Content Library in vSphere.
+	// of the image specified in the spec.source.url in the specified vSphere Content Library.
+        // If an item with the same name already exists in the specified vSphere Content Library,
+        // the TargetValid condition will become false in the status.
 	// +optional
 	Item ContentLibraryItemImportRequestTargetItem `json:"item,omitempty"`
 
@@ -94,6 +96,9 @@ type ContentLibraryItemFileUploadStatus struct {
 // ContentLibraryItemImportRequest.
 type ContentLibraryItemImportRequestStatus struct {
 	// ItemRef is the reference to the target ContentLibraryItem resource of the import request.
+	// If the import operation fails or the ContentLibraryItemImportRequest is deleted
+	// before the Complete condition is set to true, the import operation will be cancelled in vSphere
+	// and the corresponding vSPhere Content Library Item will be deleted.
 	// +optional
 	ItemRef *LocalObjectRef `json:"itemRef,omitempty"`
 
