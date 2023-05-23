@@ -38,7 +38,7 @@ help: ## Display this help
 .PHONY: $(LIST_CTRL)
 list-ctrl: prereqs $(LIST_CTRL) ## Build list sample with controller client
 $(LIST_CTRL): go.mod
-	go build -o $@ github.com/vmware-tanzu/image-registry-operator-api/hack/samples/controller
+	go build -ldflags "-X google.golang.org/protobuf/reflect/protoregistry.conflictPolicy=warn" -o $@ github.com/vmware-tanzu/image-registry-operator-api/hack/samples/controller
 
 ## --------------------------------------
 ##@ Cleanup
