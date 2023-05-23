@@ -9,8 +9,7 @@ SHELL := /usr/bin/env bash
 # Active module mode, as we use go modules to manage dependencies
 export GO111MODULE := on
 
-# ENVTEST_K8S_VERSION refers to the version of kubebuilder assets to be downloaded by envtest binary.
-ENVTEST_K8S_VERSION = 1.25.0
+ENVTEST_DOWNLOAD_DIR = $(shell ./$(BIN_DIR)/setup-envtest --bin-dir $(TOOLS_BIN_DIR) -p path use)
 
 # Directories.
 BIN_DIR := bin
@@ -49,7 +48,8 @@ $(GOLANGCI_LINT):
 setup-envtest: $(SETUP_ENVTEST) ## Install envtest
 $(SETUP_ENVTEST):
 	GOBIN=$(TOOLS_BIN_DIR) go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest
-	./$(BIN_DIR)/setup-envtest --bin-dir $(TOOLS_BIN_DIR) -p path use
+	@echo "Envtest download directory: $(ENVTEST_DOWNLOAD_DIR)"
+	cp $(ENVTEST_DOWNLOAD_DIR)/* $(BIN_DIR)
 
 ## --------------------------------------
 ##@ Generate
