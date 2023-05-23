@@ -24,3 +24,13 @@ const (
 	ContentLibraryRefValidationFailedReason        = "ContentLibraryRefValidationFailed"
 	ContentLibraryItemFileUnavailableReason        = "ContentLibraryItemFileUnavailable"
 )
+
+// Condition.Reasons related to ContentLibraryItemImportRequest API objects.
+const (
+	ContentLibraryItemImportRequestSourceValid               = "SourceValid"
+	ContentLibraryItemImportRequestTargetValid               = "TargetValid"
+	ContentLibraryItemImportRequestContentLibraryItemCreated = "ContentLibraryItemCreated"
+	ContentLibraryItemImportRequestTemplateUploaded          = "TemplateUploaded"
+	ContentLibraryItemImportRequestContentLibraryItemReady   = "ContentLibraryItemReady"
+	ContentLibraryItemImportRequestComplete                  = "Complete"
+)
