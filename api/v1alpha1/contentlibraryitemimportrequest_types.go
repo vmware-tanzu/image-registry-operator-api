@@ -53,11 +53,13 @@ type ContentLibraryItemImportRequestTarget struct {
 type ContentLibraryItemImportRequestSpec struct {
 	// Source is the source of the import request which includes an external URL
 	// pointing to a VM image template.
+	// Source and Target will be immutable if the SourceValid and TargetValid conditions are true.
 	// +required
 	Source ContentLibraryItemImportRequestSource `json:"source"`
 
 	// Target is the target of the import request which includes the content library item
 	// information and a ContentLibrary resource.
+	// Source and Target will be immutable if the SourceValid and TargetValid conditions are true.
 	// +required
 	Target ContentLibraryItemImportRequestTarget `json:"target"`
 
@@ -111,6 +113,13 @@ type ContentLibraryItemImportRequestStatus struct {
 	FileUploadStatus *ContentLibraryItemFileUploadStatus `json:"fileUploadStatus,omitempty"`
 
 	// Conditions describes the current condition information of the ContentLibraryItemImportRequest.
+	// The conditions present will be:
+	//   * SourceValid
+	//   * TargetValid
+	//   * ContentLibraryItemCreated
+	//   * TemplateUploaded
+	//   * ContentLibraryItemReady
+	//   * Complete
 	// +optional
 	Conditions []Condition `json:"conditions,omitempty"`
 }
