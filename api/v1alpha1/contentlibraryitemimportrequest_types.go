@@ -96,9 +96,9 @@ type ContentLibraryItemFileUploadStatus struct {
 // ContentLibraryItemImportRequest.
 type ContentLibraryItemImportRequestStatus struct {
 	// ItemRef is the reference to the target ContentLibraryItem resource of the import request.
-	// If the import operation fails or the ContentLibraryItemImportRequest is deleted
-	// before the Complete condition is set to true, the import operation will be cancelled in vSphere
-	// and the corresponding vSPhere Content Library Item will be deleted.
+	// If the ContentLibraryItemImportRequest is deleted when the import operation fails or before
+	// the Complete condition is set to true, the import operation will be cancelled in vSphere
+	// and the corresponding vSphere Content Library Item will be deleted.
 	// +optional
 	ItemRef *LocalObjectRef `json:"itemRef,omitempty"`
 
