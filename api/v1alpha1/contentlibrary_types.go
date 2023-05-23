@@ -85,6 +85,7 @@ type ContentLibrarySpec struct {
 	// AllowImport flag indicates if users can import OVF/OVA templates from remote HTTPS URLs
 	// as new content library items in this library.
 	// +optional
+	// +kubebuilder:default=false
 	AllowImport bool `json:"allowImport,omitempty"`
 }
 
