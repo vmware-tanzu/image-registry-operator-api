@@ -10,7 +10,7 @@ import (
 // ContentLibraryItemImportRequestSource contains the specification of the source for the import request.
 type ContentLibraryItemImportRequestSource struct {
 	// URL is the endpoint that points to an OVF/OVA template that
-	// has to be imported as a new Content Library Item in the
+	// is to be imported as a new Content Library Item in a
 	// vSphere Content Library.
 	// +required
 	URL string `json:"url"`
@@ -27,7 +27,7 @@ type ContentLibraryItemImportRequestTargetItem struct {
 	// +optional
 	Name string `json:"name,omitempty"`
 
-	// Description is a description for the vSphere Content Library Item.
+	// Description is a description for a vSphere Content Library Item.
 	// +optional
 	Description string `json:"description,omitempty"`
 }
