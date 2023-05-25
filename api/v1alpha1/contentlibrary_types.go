@@ -160,6 +160,7 @@ func (contentLibrary *ContentLibrary) SetConditions(conditions Conditions) {
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Writable",type="boolean",JSONPath=".spec.writable"
+// +kubebuilder:printcolumn:name="AllowImport",type="boolean",JSONPath=".spec.allowImport"
 // +kubebuilder:printcolumn:name="StorageType",type="string",JSONPath=".status.storageBacking.type"
 // +kubebuilder:printcolumn:name="Age",type="date",JSONPath=".metadata.creationTimestamp"
 
