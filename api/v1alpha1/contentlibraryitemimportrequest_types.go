@@ -45,7 +45,6 @@ type ContentLibraryItemImportRequestTarget struct {
 
 	// Library contains information about the library in which the library item
 	// will be created in vSphere.
-	// +kubebuilder:default={apiVersion: imageregistry.vmware.com/v1alpha1, kind: ContentLibraryItem}
 	// +required
 	Library LocalObjectRef `json:"library"`
 }
