@@ -10,6 +10,7 @@ type NameAndKindRef struct {
 	// Kind is a string value representing the kind of resource to which this
 	// object refers.
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// +optional
 	Kind string `json:"kind"`
 
 	// Name refers to a unique resource in the current namespace.
