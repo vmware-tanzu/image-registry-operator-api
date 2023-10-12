@@ -42,7 +42,7 @@ $(CONTROLLER_GEN): go.mod
 .PHONY: $(GOLANGCI_LINT)
 golangci-lint: $(GOLANGCI_LINT) ## Install golangci-lint
 $(GOLANGCI_LINT):
-	go build -tags=tools -o $@ github.com/golangci/golangci-lint/cmd/golangci-lint
+	curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(BIN_DIR) v1.51.0
 
 .PHONY: $(SETUP_ENVTEST)
 setup-envtest: $(SETUP_ENVTEST) ## Install envtest

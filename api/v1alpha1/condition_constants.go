@@ -25,12 +25,50 @@ const (
 	ContentLibraryItemFileUnavailableReason        = "ContentLibraryItemFileUnavailable"
 )
 
+// ConditionTypes used by ContentLibraryItemImportRequest API objects.
+const (
+	ContentLibraryItemImportRequestSourceValid               ConditionType = "SourceValid"
+	ContentLibraryItemImportRequestTargetValid               ConditionType = "TargetValid"
+	ContentLibraryItemImportRequestContentLibraryItemCreated ConditionType = "ContentLibraryItemCreated"
+	ContentLibraryItemImportRequestTemplateUploaded          ConditionType = "TemplateUploaded"
+	ContentLibraryItemImportRequestContentLibraryItemReady   ConditionType = "ContentLibraryItemReady"
+	ContentLibraryItemImportRequestComplete                  ConditionType = "Complete"
+)
+
 // Condition.Reasons related to ContentLibraryItemImportRequest API objects.
 const (
-	ContentLibraryItemImportRequestSourceValid               = "SourceValid"
-	ContentLibraryItemImportRequestTargetValid               = "TargetValid"
-	ContentLibraryItemImportRequestContentLibraryItemCreated = "ContentLibraryItemCreated"
-	ContentLibraryItemImportRequestTemplateUploaded          = "TemplateUploaded"
-	ContentLibraryItemImportRequestContentLibraryItemReady   = "ContentLibraryItemReady"
-	ContentLibraryItemImportRequestComplete                  = "Complete"
+	// SourceURLInvalidReason documents that the source URL specified in the ContentLibraryItemImportRequest is invalid.
+	SourceURLInvalidReason = "SourceURLInvalid"
+
+	// SourceSchemeInvalidReason documents that the scheme in the source URL specified in the
+	// ContentLibraryItemImportRequest is invalid.
+	SourceSchemeInvalidReason = "SourceSchemeInvalid"
+
+	// SourceHostInvalidReason documents that the host in the source URL specified in the
+	// ContentLibraryItemImportRequest is invalid.
+	SourceHostInvalidReason = "SourceHostInvalid"
+
+	// TargetLibraryInvalidReason documents that the target ContentLibrary specified in the
+	// ContentLibraryItemImportRequest is invalid.
+	TargetLibraryInvalidReason = "TargetLibraryInvalid"
+
+	// TargetLibraryItemInvalidReason documents that the specified target content library item in the
+	// ContentLibraryItemImportRequest is invalid.
+	TargetLibraryItemInvalidReason = "TargetLibraryItemInvalid"
+
+	// TargetLibraryItemCreationFailureReason documents that the creation of the target ContentLibraryItem has failed.
+	TargetLibraryItemCreationFailureReason = "TargetLibraryItemCreationFailure"
+
+	// TargetLibraryItemUnavailableReason documents that the target ContentLibraryItem resource is not available in the
+	// namespace yet.
+	TargetLibraryItemUnavailableReason = "TargetLibraryItemUnavailable"
+
+	// UploadInProgressReason documents that the files are in progress being uploaded to the target ContentLibraryItem.
+	UploadInProgressReason = "UploadInProgress"
+
+	// UploadFailureReason documents that uploading files to the target content library item has failed.
+	UploadFailureReason = "UploadFailure"
+
+	// TargetLibraryItemNotReadyReason documents that the target ContentLibraryItem resource is not in ready status yet.
+	TargetLibraryItemNotReadyReason = "TargetLibraryItemNotReady"
 )

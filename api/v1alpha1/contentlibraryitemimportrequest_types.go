@@ -5,6 +5,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/types"
 )
 
 // ContentLibraryItemImportRequestSource contains the specification of the source for the import request.
@@ -78,6 +79,10 @@ type ContentLibraryItemImportRequestSpec struct {
 
 // ContentLibraryItemFileUploadStatus indicates the upload status of files belonging to the template.
 type ContentLibraryItemFileUploadStatus struct {
+	// SessionUUID is the identifier that uniquely identifies the file upload session on the library item in vSphere.
+	// +required
+	SessionUUID types.UID `json:"sessionUUID,omitempty"`
+
 	// InProgress lists the names of files that are being imported into vSphere.
 	// +optional
 	InProgress []string `json:"inProgress,omitempty"`
