@@ -69,6 +69,9 @@ const (
 	// UploadFailureReason documents that uploading files to the target content library item has failed.
 	UploadFailureReason = "UploadFailure"
 
+	// UploadSessionExpiredReason documents that the uploading session for this ContentLibraryItemImportRequest has expired.
+	UploadSessionExpiredReason = "UploadSessionExpired"
+
 	// TargetLibraryItemNotReadyReason documents that the target ContentLibraryItem resource is not in ready status yet.
 	TargetLibraryItemNotReadyReason = "TargetLibraryItemNotReady"
 )
