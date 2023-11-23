@@ -8,6 +8,26 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 )
 
+// TransferStatus is a constant that indicates the transfer state of a file.
+type TransferStatus string
+
+const (
+	// TransferStatusWaiting indicates that the file is waiting to be transferred.
+	TransferStatusWaiting TransferStatus = "waiting"
+
+	// TransferStatusTransferring indicates that the data of the file is being transferred.
+	TransferStatusTransferring TransferStatus = "transferring"
+
+	// TransferStatusValidating indicates that the file is being validated.
+	TransferStatusValidating TransferStatus = "validating"
+
+	// TransferStatusReady indicates that the file has been fully transferred and is ready to be used.
+	TransferStatusReady TransferStatus = "ready"
+
+	// TransferStatusError indicates there was an error transferring or validating the file.
+	TransferStatusError TransferStatus = "error"
+)
+
 // ContentLibraryItemImportRequestSource contains the specification of the source for the import request.
 type ContentLibraryItemImportRequestSource struct {
 	// URL is the endpoint that points to an OVF/OVA template that
@@ -83,17 +103,33 @@ type ContentLibraryItemFileUploadStatus struct {
 	// +required
 	SessionUUID types.UID `json:"sessionUUID,omitempty"`
 
-	// InProgress lists the names of files that are being imported into vSphere.
+	// FileUploads list the transfer statuses of files being uploaded and tracked by the upload session.
 	// +optional
-	InProgress []string `json:"inProgress,omitempty"`
+	FileUploads []FileTransferStatus `json:"fileUploads,omitempty"`
+}
 
-	// Completed lists the names of files that have been successfully imported into vSphere.
-	// +optional
-	Completed []string `json:"completed,omitempty"`
+// FileTransferStatus indicates the transfer status of a file belonging to a library item.
+type FileTransferStatus struct {
+	// Name specifies the name of the file that is transferred.
+	// +required
+	Name string `json:"name"`
 
-	// Failed lists the names of files that failed to be imported into vSphere.
+	// Status indicates the transfer status of the file.
+	// +required
+	Status TransferStatus `json:"transferStatus"`
+
+	// BytesTransferred indicates the number of bytes of this file that have been received by the server.
 	// +optional
-	Failed []string `json:"failed,omitempty"`
+	BytesTransferred *int64 `json:"bytesTransferred,omitempty"`
+
+	// Size indicates the file size in bytes as received by the server, this won't be available
+	// until the transfer status is ready.
+	// +optional
+	Size *int64 `json:"size,omitempty"`
+
+	// ErrorMessage describes the details about the transfer error if the transfer status is error.
+	// +optional
+	ErrorMessage string `json:"errorMessage,omitempty"`
 }
 
 // ContentLibraryItemImportRequestStatus defines the observed state of a
