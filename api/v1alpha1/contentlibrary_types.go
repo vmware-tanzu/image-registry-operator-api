@@ -156,7 +156,7 @@ func (contentLibrary *ContentLibrary) SetConditions(conditions Conditions) {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Namespaced,shortName=cl
+// +kubebuilder:resource:scope=Namespaced,shortName=clib
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Writable",type="boolean",JSONPath=".spec.writable"
@@ -200,7 +200,7 @@ func (ccl *ClusterContentLibrary) SetConditions(conditions Conditions) {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,shortName=ccl
+// +kubebuilder:resource:scope=Cluster,shortName=cclib
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="StorageType",type="string",JSONPath=".status.storageBacking.type"

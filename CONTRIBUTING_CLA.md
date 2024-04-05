@@ -120,4 +120,5 @@ any API changes.
 
 ## Ask for Help
 
-The best way to reach us with a question when contributing is to ask on the original GitHub issue.
+The best way to reach us with a question when contributing is to ask on the
+original GitHub issue.

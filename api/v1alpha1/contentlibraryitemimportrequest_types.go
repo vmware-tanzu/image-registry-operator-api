@@ -30,9 +30,10 @@ const (
 
 // ContentLibraryItemImportRequestSource contains the specification of the source for the import request.
 type ContentLibraryItemImportRequestSource struct {
-	// URL is the endpoint that points to an OVF/OVA template that
-	// is to be imported as a new Content Library Item in a
-	// vSphere Content Library.
+	// URL is the endpoint that points to a file that is to be imported as a new Content Library Item in
+	// the target vSphere Content Library. If the target item type is ContentLibraryItemTypeOvf, the URL
+	// should point to an OVF descriptor file (.ovf) or an OVA file (.ova), otherwise the SourceValid
+	// condition will become false in the status.
 	// +required
 	URL string `json:"url"`
 }
@@ -51,6 +52,12 @@ type ContentLibraryItemImportRequestTargetItem struct {
 	// Description is a description for a vSphere Content Library Item.
 	// +optional
 	Description string `json:"description,omitempty"`
+
+	// Type is the type of the new content library item that will be created in vSphere.
+	// Currently only ContentLibraryItemTypeOvf is supported, if it is omitted or other item type
+	// is specified, the TargetValid condition will become false in the status.
+	// +optional
+	Type ContentLibraryItemType `json:"type,omitempty"`
 }
 
 // ContentLibraryItemImportRequestTarget is the target specification of an import request.
