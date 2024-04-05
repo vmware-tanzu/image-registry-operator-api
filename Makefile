@@ -109,7 +109,7 @@ lint-go-full: lint-go ## Run slower linters to detect possible issues
 
 .PHONY: lint-markdown
 lint-markdown: ## Lint the project's markdown
-	docker run --rm -v $$(pwd):/mnt mivok/markdownlint -c /mnt/.mdlrc /mnt
+	docker run --rm -v "$$(pwd)":/build gcr.io/cluster-api-provider-vsphere/extra/mdlint:0.17.0
 
 ## --------------------------------------
 ##@ Cleanup

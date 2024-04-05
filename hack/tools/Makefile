@@ -18,6 +18,10 @@ TOOLS_BIN_DIR = $(shell pwd)/$(BIN_DIR)
 HOST_OS=$(shell go env GOOS)
 HOST_ARCH=$(shell go env GOARCH)
 
+# Get the information about the platform on which the tools are built/run.
+GOHOSTOS := $(shell go env GOHOSTOS)
+GOHOSTARCH := $(shell go env GOHOSTARCH)
+
 # Binaries.
 CONTROLLER_GEN  := $(BIN_DIR)/controller-gen
 GOLANGCI_LINT   := $(BIN_DIR)/golangci-lint
@@ -37,19 +41,19 @@ help: ## Display this help
 .PHONY: $(CONTROLLER_GEN)
 controller-gen: $(CONTROLLER_GEN) ## Install controller-gen
 $(CONTROLLER_GEN): go.mod
-	go build -tags=tools -o $@ sigs.k8s.io/controller-tools/cmd/controller-gen
+	go build -tags=api_tools -o $@ sigs.k8s.io/controller-tools/cmd/controller-gen
 
 .PHONY: $(GOLANGCI_LINT)
 golangci-lint: $(GOLANGCI_LINT) ## Install golangci-lint
-$(GOLANGCI_LINT):
-	curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(BIN_DIR) v1.51.0
+$(GOLANGCI_LINT): go.mod
+	GOOS=$(GOHOSTOS) GOARCH=$(GOHOSTARCH) \
+	go build -tags=api_tools -o $(@) github.com/golangci/golangci-lint/cmd/golangci-lint
 
 .PHONY: $(SETUP_ENVTEST)
-setup-envtest: $(SETUP_ENVTEST) ## Install envtest
-$(SETUP_ENVTEST):
-	GOBIN=$(TOOLS_BIN_DIR) go install sigs.k8s.io/controller-runtime/tools/setup-envtest@latest
-	@echo "Envtest download directory: $(ENVTEST_DOWNLOAD_DIR)"
-	cp $(ENVTEST_DOWNLOAD_DIR)/* $(BIN_DIR)
+setup-envtest: $(SETUP_ENVTEST) ## Install setup-envtest
+$(SETUP_ENVTEST): go.mod
+	@echo "==> Installing setup-envtest"
+	@go build -tags=api_tools -o $@ sigs.k8s.io/controller-runtime/tools/setup-envtest
 
 ## --------------------------------------
 ##@ Generate
