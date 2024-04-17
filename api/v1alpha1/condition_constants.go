@@ -40,13 +40,16 @@ const (
 	// SourceURLInvalidReason documents that the source URL specified in the ContentLibraryItemImportRequest is invalid.
 	SourceURLInvalidReason = "SourceURLInvalid"
 
-	// SourceSchemeInvalidReason documents that the scheme in the source URL specified in the
+	// SourceURLSchemeInvalidReason documents that the scheme in the source URL specified in the
 	// ContentLibraryItemImportRequest is invalid.
-	SourceSchemeInvalidReason = "SourceSchemeInvalid"
+	SourceURLSchemeInvalidReason = "SourceURLSchemeInvalid"
 
-	// SourceHostInvalidReason documents that the host in the source URL specified in the
+	// SourceURLHostInvalidReason documents that the host in the source URL specified in the
 	// ContentLibraryItemImportRequest is invalid.
-	SourceHostInvalidReason = "SourceHostInvalid"
+	SourceURLHostInvalidReason = "SourceURLHostInvalid"
+
+	// SourceSSLCertificateUntrustedReason documents that the SSL certificate served at the source URL is not trusted by vSphere.
+	SourceSSLCertificateUntrustedReason = "SourceSSLCertificateUntrusted"
 
 	// TargetLibraryInvalidReason documents that the target ContentLibrary specified in the
 	// ContentLibraryItemImportRequest is invalid.
