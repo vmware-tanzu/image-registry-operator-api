@@ -36,6 +36,14 @@ type ContentLibraryItemImportRequestSource struct {
 	// condition will become false in the status.
 	// +required
 	URL string `json:"url"`
+
+	// PEM encoded SSL Certificate for this endpoint specified by the URL. It is only used for HTTPS connections.
+	// If set, the remote endpoint's SSL certificate is only accepted if it matches this certificate, and no other
+	// certificate validation is performed.
+	// If unset, the remote endpoint's SSL certificate must be trusted by vSphere trusted root CA certificates,
+	// otherwise the SSL certification verification may fail and thus fail the import request.
+	// +optional
+	SSLCertificate string `json:"sslCertificate,omitempty"`
 }
 
 // ContentLibraryItemImportRequestTargetItem contains the specification of the target
@@ -55,7 +63,10 @@ type ContentLibraryItemImportRequestTargetItem struct {
 
 	// Type is the type of the new content library item that will be created in vSphere.
 	// Currently only ContentLibraryItemTypeOvf is supported, if it is omitted or other item type
-	// is specified, the TargetValid condition will become false in the status.
+	// is specified, the TargetValid condition will become false in the status. For the item type
+	// of ContentLibraryItemTypeOvf, it is required that the default OVF security policy is configured
+	// on the target content library for the import request, otherwise the TargetValid condition will
+	// become false in the status.
 	// +optional
 	Type ContentLibraryItemType `json:"type,omitempty"`
 }

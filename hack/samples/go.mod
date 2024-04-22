@@ -2,8 +2,6 @@ module github.com/vmware-tanzu/image-registry-operator-api/hack/samples
 
 go 1.21
 
-toolchain go1.21.6
-
 // The generated client is not part of the release, so point to the local version that includes the generated code
 // Note also that image-registry-operator-api is not specified in require the samples automatically pull in the latest
 replace github.com/vmware-tanzu/image-registry-operator-api => ../../../image-registry-operator-api
