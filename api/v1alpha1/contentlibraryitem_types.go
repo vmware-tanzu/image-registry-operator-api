@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2023 VMware, Inc. All Rights Reserved.
+// Copyright (c) 2022-2024 VMware, Inc. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package v1alpha1
@@ -74,6 +74,23 @@ type FileInfo struct {
 	Cached bool `json:"cached"`
 }
 
+// StorageInfo includes the storage backing for a file in a content library item
+// in vCenter.
+type StorageInfo struct {
+	// +required
+
+	// Name specifies the name of the file in vCenter.
+	Name string `json:"name"`
+
+	// +required
+
+	// StorageURIs identify the file on the storage backing. These URIs may be
+	// specific to the backing and may need interpretation by the client. A
+	// client that understands a URI scheme in this list may use that URI to
+	// directly access the file on the storage backing.
+	StorageURIs []string `json:"storageURIs"`
+}
+
 // ContentLibraryItemSpec defines the desired state of a ContentLibraryItem.
 type ContentLibraryItemSpec struct {
 	// UUID is the identifier which uniquely identifies the library item in vCenter. This field is immutable.
@@ -130,6 +147,12 @@ type ContentLibraryItemStatus struct {
 	// FileInfo represents zero, one or more files belonging to the content library item in vCenter.
 	// +optional
 	FileInfo []FileInfo `json:"fileInfo,omitempty"`
+
+	// +optional
+
+	// StorageInfo represents the storage backing information of the files
+	// belonging to the content library item in vCenter.
+	StorageInfo []StorageInfo `json:"storageInfo,omitempty"`
 
 	// CreationTime indicates the date and time when this library item was created in vCenter.
 	// +optional
