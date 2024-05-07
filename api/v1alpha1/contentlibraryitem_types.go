@@ -55,40 +55,35 @@ type CertificateVerificationInfo struct {
 
 // FileInfo represents the information of a file in a content library item in vCenter.
 type FileInfo struct {
-	// Name specifies the name of the file in vCenter.
 	// +required
+
+	// Name specifies the name of the file in vCenter.
 	Name string `json:"name"`
 
-	// SizeInBytes indicates the library item file size in bytes on storage in vCenter.
 	// +required
+
+	// SizeInBytes indicates the library item file size in bytes on storage in vCenter.
 	SizeInBytes resource.Quantity `json:"sizeInBytes"`
+
+	// +required
 
 	// Version indicates the version of the library item file in vCenter.
 	// This value is incremented when a new copy of the file is uploaded to vCenter.
-	// +required
 	Version string `json:"version"`
 
-	// Cached indicates if the library item file is on storage in vCenter.
 	// +required
 	// +kubebuilder:default=false
+
+	// Cached indicates if the library item file is on storage in vCenter.
 	Cached bool `json:"cached"`
-}
-
-// StorageInfo includes the storage backing for a file in a content library item
-// in vCenter.
-type StorageInfo struct {
-	// +required
-
-	// Name specifies the name of the file in vCenter.
-	Name string `json:"name"`
 
 	// +required
 
-	// StorageURIs identify the file on the storage backing. These URIs may be
-	// specific to the backing and may need interpretation by the client. A
-	// client that understands a URI scheme in this list may use that URI to
-	// directly access the file on the storage backing.
-	StorageURIs []string `json:"storageURIs"`
+	// StorageURI identifies the file on the storage backing. This URI may be
+	// specific to the backing and may need interpretation by the client. It is
+	// useful for creating a device that is backed by this file (i.e. mounting
+	// an ISO file via a virtual CD-ROM device).
+	StorageURI string `json:"storageURI"`
 }
 
 // ContentLibraryItemSpec defines the desired state of a ContentLibraryItem.
@@ -147,12 +142,6 @@ type ContentLibraryItemStatus struct {
 	// FileInfo represents zero, one or more files belonging to the content library item in vCenter.
 	// +optional
 	FileInfo []FileInfo `json:"fileInfo,omitempty"`
-
-	// +optional
-
-	// StorageInfo represents the storage backing information of the files
-	// belonging to the content library item in vCenter.
-	StorageInfo []StorageInfo `json:"storageInfo,omitempty"`
 
 	// CreationTime indicates the date and time when this library item was created in vCenter.
 	// +optional
