@@ -50,7 +50,8 @@ type ContentLibraryItemImportRequestSource struct {
 	// +optional
 
 	// Checksum contains the checksum algorithm and value calculated for the
-	// file specified in the URL. If omitted, the checksum will not be verified.
+	// file specified in the URL. If omitted, the import request will not verify
+	// the checksum of the file.
 	Checksum *Checksum `json:"checksum,omitempty"`
 }
 
@@ -58,12 +59,12 @@ type ContentLibraryItemImportRequestSource struct {
 // value.
 type Checksum struct {
 	// +optional
-	// +kubebuilder:validation:Enum=SHA1;SHA256;SHA512;MD5
+	// +kubebuilder:validation:Enum=SHA256;SHA512
 	// +kubebuilder:default=SHA256
 
 	// Algorithm is the algorithm used to calculate the checksum. Supported
-	// algorithms are "SHA1", "SHA256", "SHA512", and "MD5".
-	// If omitted, "SHA256" will be used as the default algorithm.
+	// algorithms are "SHA256" and "SHA512". If omitted, "SHA256" will be used
+	// as the default algorithm.
 	Algorithm string `json:"algorithm"`
 
 	// +required

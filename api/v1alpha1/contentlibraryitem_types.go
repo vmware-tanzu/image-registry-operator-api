@@ -77,13 +77,13 @@ type FileInfo struct {
 	// Cached indicates if the library item file is on storage in vCenter.
 	Cached bool `json:"cached"`
 
-	// +required
+	// +optional
 
-	// StorageURI identifies the file on the storage backing. This URI may be
-	// specific to the backing and may need interpretation by the client. It is
-	// useful for creating a device that is backed by this file (i.e. mounting
-	// an ISO file via a virtual CD-ROM device).
-	StorageURI string `json:"storageURI"`
+	// StorageURI identifies the file on the storage backing. It is specific to
+	// the storage backing and available after the file is cached in vCenter.
+	// This URL is useful for creating a device that is backed by this file
+	// (i.e. mounting an ISO file via a virtual CD-ROM device).
+	StorageURI string `json:"storageURI,omitempty"`
 }
 
 // ContentLibraryItemSpec defines the desired state of a ContentLibraryItem.
