@@ -1,4 +1,4 @@
-// Copyright (c) 2023 VMware, Inc. All Rights Reserved.
+// Copyright (c) 2023-2024 VMware, Inc. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package v1alpha1
@@ -30,20 +30,47 @@ const (
 
 // ContentLibraryItemImportRequestSource contains the specification of the source for the import request.
 type ContentLibraryItemImportRequestSource struct {
+	// +required
+
 	// URL is the endpoint that points to a file that is to be imported as a new Content Library Item in
 	// the target vSphere Content Library. If the target item type is ContentLibraryItemTypeOvf, the URL
-	// should point to an OVF descriptor file (.ovf) or an OVA file (.ova), otherwise the SourceValid
-	// condition will become false in the status.
-	// +required
+	// should point to an OVF descriptor file (.ovf), an OVA file (.ova), or an ISO file (.iso). Otherwise,
+	// the SourceValid condition will become false in the status.
 	URL string `json:"url"`
+
+	// +optional
 
 	// PEM encoded SSL Certificate for this endpoint specified by the URL. It is only used for HTTPS connections.
 	// If set, the remote endpoint's SSL certificate is only accepted if it matches this certificate, and no other
 	// certificate validation is performed.
 	// If unset, the remote endpoint's SSL certificate must be trusted by vSphere trusted root CA certificates,
 	// otherwise the SSL certification verification may fail and thus fail the import request.
-	// +optional
 	SSLCertificate string `json:"sslCertificate,omitempty"`
+
+	// +optional
+
+	// Checksum contains the checksum algorithm and value calculated for the
+	// file specified in the URL. If omitted, the import request will not verify
+	// the checksum of the file.
+	Checksum *Checksum `json:"checksum,omitempty"`
+}
+
+// Checksum contains the checksum value and algorithm used to calculate that
+// value.
+type Checksum struct {
+	// +optional
+	// +kubebuilder:validation:Enum=SHA256;SHA512
+	// +kubebuilder:default=SHA256
+
+	// Algorithm is the algorithm used to calculate the checksum. Supported
+	// algorithms are "SHA256" and "SHA512". If omitted, "SHA256" will be used
+	// as the default algorithm.
+	Algorithm string `json:"algorithm"`
+
+	// +required
+
+	// Value is the checksum value calculated by the specified algorithm.
+	Value string `json:"value"`
 }
 
 // ContentLibraryItemImportRequestTargetItem contains the specification of the target

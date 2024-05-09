@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2023 VMware, Inc. All Rights Reserved.
+// Copyright (c) 2022-2024 VMware, Inc. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package v1alpha1
@@ -55,23 +55,35 @@ type CertificateVerificationInfo struct {
 
 // FileInfo represents the information of a file in a content library item in vCenter.
 type FileInfo struct {
-	// Name specifies the name of the file in vCenter.
 	// +required
+
+	// Name specifies the name of the file in vCenter.
 	Name string `json:"name"`
 
-	// SizeInBytes indicates the library item file size in bytes on storage in vCenter.
 	// +required
+
+	// SizeInBytes indicates the library item file size in bytes on storage in vCenter.
 	SizeInBytes resource.Quantity `json:"sizeInBytes"`
+
+	// +required
 
 	// Version indicates the version of the library item file in vCenter.
 	// This value is incremented when a new copy of the file is uploaded to vCenter.
-	// +required
 	Version string `json:"version"`
 
-	// Cached indicates if the library item file is on storage in vCenter.
 	// +required
 	// +kubebuilder:default=false
+
+	// Cached indicates if the library item file is on storage in vCenter.
 	Cached bool `json:"cached"`
+
+	// +optional
+
+	// StorageURI identifies the file on the storage backing. It is specific to
+	// the storage backing and available after the file is cached in vCenter.
+	// This URL is useful for creating a device that is backed by this file
+	// (i.e. mounting an ISO file via a virtual CD-ROM device).
+	StorageURI string `json:"storageURI,omitempty"`
 }
 
 // ContentLibraryItemSpec defines the desired state of a ContentLibraryItem.
