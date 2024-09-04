@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2023 VMware, Inc. All Rights Reserved.
+// Copyright (c) 2022-2024 VMware, Inc. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 package v1alpha1
@@ -44,6 +44,20 @@ type StorageBacking struct {
 	DatastoreID string `json:"datastoreID,omitempty"`
 }
 
+// ResourceNamingStrategy represents a naming strategy for item resources in a content library in vCenter.
+type ResourceNamingStrategy string
+
+const (
+	// ResourceNamingStrategyFromItemID indicates the naming strategy that generates the item resource name from the item
+	// identifier for items in a content library. This is the default naming strategy if not specified on a content library.
+	ResourceNamingStrategyFromItemID ResourceNamingStrategy = "FROM_ITEM_ID"
+
+	// ResourceNamingStrategyPreferItemSourceID indicates the naming strategy that generates the item resource name from the
+	// source identifier of the item if it belongs to a subscribed content library, otherwise the item resource name will
+	// be generated from the item identifier for items in a content library.
+	ResourceNamingStrategyPreferItemSourceID ResourceNamingStrategy = "PREFER_ITEM_SOURCE_ID"
+)
+
 // SubscriptionInfo defines how the subscribed library synchronizes to a remote source.
 type SubscriptionInfo struct {
 	// URL of the endpoint where the metadata for the remotely published library is being served.
@@ -87,6 +101,12 @@ type ContentLibrarySpec struct {
 	// +optional
 	// +kubebuilder:default=false
 	AllowImport bool `json:"allowImport,omitempty"`
+
+	// ResourceNamingStrategy defines the naming strategy for item resources in this content library. If not specified,
+	// naming strategy FROM_ITEM_ID will be used to generate item resource names. This field is immutable.
+	// +optional
+	// +kubebuilder:validation:Enum=FROM_ITEM_ID;PREFER_ITEM_SOURCE_ID
+	ResourceNamingStrategy ResourceNamingStrategy `json:"resourceNamingStrategy,omitempty"`
 }
 
 // ContentLibraryStatus defines the observed state of ContentLibrary.
@@ -125,6 +145,10 @@ type ContentLibraryStatus struct {
 	// Setting this field will make the library secure.
 	// +optional
 	SecurityPolicyID string `json:"securityPolicyID,omitempty"`
+
+	// ServerGUID indicates the unique identifier of the vCenter server where the library exists.
+	// +optional
+	ServerGUID string `json:"serverGUID,omitempty"`
 
 	// CreationTime indicates the date and time when this library was created in vCenter.
 	// +optional
@@ -188,6 +212,12 @@ type ClusterContentLibrarySpec struct {
 	// UUID is the identifier which uniquely identifies the library in vCenter. This field is immutable.
 	// +required
 	UUID types.UID `json:"uuid"`
+
+	// ResourceNamingStrategy defines the naming strategy for item resources in this content library. If not specified,
+	// naming strategy FROM_ITEM_ID will be used to generate item resource names. This field is immutable.
+	// +optional
+	// +kubebuilder:validation:Enum=FROM_ITEM_ID;PREFER_ITEM_SOURCE_ID
+	ResourceNamingStrategy ResourceNamingStrategy `json:"resourceNamingStrategy,omitempty"`
 }
 
 func (ccl *ClusterContentLibrary) GetConditions() Conditions {

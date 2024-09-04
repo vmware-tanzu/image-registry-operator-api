@@ -122,6 +122,10 @@ type ContentLibraryItemStatus struct {
 	// +optional
 	Type ContentLibraryItemType `json:"type,omitempty"`
 
+	// SourceID indicates the source identifier of the library item if the item belongs to a subscribed content library.
+	// +optional
+	SourceID types.UID `json:"sourceID,omitempty"`
+
 	// SizeInBytes indicates the library item size in bytes on storage in vCenter.
 	// +optional
 	SizeInBytes resource.Quantity `json:"sizeInBytes,omitempty"`
