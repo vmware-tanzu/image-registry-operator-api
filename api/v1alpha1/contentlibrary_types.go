@@ -31,6 +31,19 @@ const (
 	StorageBackingTypeOther StorageBackingType = "Other"
 )
 
+// State is a constant type that indicates the current state of a content library in vCenter.
+type State string
+
+const (
+	// StateActive indicates the library state when the library is fully functional, this is the default library state
+	// when a library is created.
+	StateActive State = "Active"
+
+	// StateMaintenance indicates the library state when the library is in migration. Content from the library may not
+	// be accessible and operations mutating library content will be disallowed in this state.
+	StateMaintenance State = "Maintenance"
+)
+
 // StorageBacking describes the default storage backing which is available for the library.
 type StorageBacking struct {
 	// Type indicates the type of storage where the content would be stored.
@@ -84,6 +97,12 @@ type PublishInfo struct {
 	// This value can be used to set the SubscriptionInfo.URL property when creating a subscribed library.
 	// +required
 	URL string `json:"URL"`
+}
+
+// StateInfo provides the information about the state of a content library.
+type StateInfo struct {
+	// State indicates the state of this library.
+	State State `json:"state"`
 }
 
 // ContentLibrarySpec defines the desired state of a ContentLibrary.
@@ -145,6 +164,10 @@ type ContentLibraryStatus struct {
 	// Setting this field will make the library secure.
 	// +optional
 	SecurityPolicyID string `json:"securityPolicyID,omitempty"`
+
+	// StateInfo provides the state information of this library.
+	// +optional
+	StateInfo *StateInfo `json:"stateInfo,omitempty"`
 
 	// ServerGUID indicates the unique identifier of the vCenter server where the library exists.
 	// +optional
