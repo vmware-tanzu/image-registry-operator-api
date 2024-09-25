@@ -35,13 +35,14 @@ const (
 type State string
 
 const (
-	// StateActive indicates the library state when the library is fully functional, this is the default library state
-	// when a library is created.
+	// StateActive indicates the library state when the library should be fully functional, this is the default library
+	// state when a library is created.
 	StateActive State = "Active"
 
-	// StateMaintenance indicates the library state when the library is in migration. Content from the library may not
-	// be accessible and operations mutating library content will be disallowed in this state.
-	StateMaintenance State = "Maintenance"
+	// StateInMaintenance indicates the library state when the library is in maintenance. This can happen when the library
+	// is storage migrated to a different datastore, in which case content from the library may not be accessible and
+	// operations mutating library content will be disallowed.
+	StateInMaintenance State = "InMaintenance"
 )
 
 // StorageBacking describes the default storage backing which is available for the library.
