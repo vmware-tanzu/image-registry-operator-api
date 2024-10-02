@@ -100,12 +100,6 @@ type PublishInfo struct {
 	URL string `json:"URL"`
 }
 
-// StateInfo provides the information about the state of a content library.
-type StateInfo struct {
-	// State indicates the state of this library.
-	State State `json:"state"`
-}
-
 // ContentLibrarySpec defines the desired state of a ContentLibrary.
 type ContentLibrarySpec struct {
 	// UUID is the identifier which uniquely identifies the library in vCenter. This field is immutable.
@@ -166,9 +160,10 @@ type ContentLibraryStatus struct {
 	// +optional
 	SecurityPolicyID string `json:"securityPolicyID,omitempty"`
 
-	// StateInfo provides the state information of this library.
+	// State indicates the state of this library.
+	// +kubebuilder:validation:Enum=Active;InMaintenance
 	// +optional
-	StateInfo *StateInfo `json:"stateInfo,omitempty"`
+	State State `json:"state,omitempty"`
 
 	// ServerGUID indicates the unique identifier of the vCenter server where the library exists.
 	// +optional
