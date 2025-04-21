@@ -129,3 +129,7 @@ clean-bin: ## Remove all generated binaries
 .PHONY: clean-crd
 clean-crd: ## Remove all generated crds
 	rm -rf config/crd
+
+.PHONY: verify-codegen
+verify-codegen: ## Verify generated code
+	hack/verify-codegen.sh

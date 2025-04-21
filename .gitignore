@@ -24,6 +24,3 @@ vendor
 *.swo
 *~
 
-# generated config files
-config/
-
