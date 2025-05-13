@@ -2,7 +2,7 @@
 // The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 // SPDX-License-Identifier: Apache-2.0
 
-package v1alpha1
+package v1alpha2
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -15,7 +15,7 @@ const GroupName = "imageregistry.vmware.com"
 
 var (
 	// GroupVersion is group version used to register these objects.
-	GroupVersion = schema.GroupVersion{Group: GroupName, Version: "v1alpha1"}
+	GroupVersion = schema.GroupVersion{Group: GroupName, Version: "v1alpha2"}
 
 	// schemeBuilder is used to add go types to the GroupVersionKind scheme.
 	schemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
@@ -24,9 +24,6 @@ var (
 	AddToScheme = schemeBuilder.AddToScheme
 
 	objectTypes = []runtime.Object{}
-
-	// localSchemeBuilder is used for type conversions.
-	localSchemeBuilder = schemeBuilder
 )
 
 func addKnownTypes(scheme *runtime.Scheme) error {

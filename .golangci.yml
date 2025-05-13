@@ -1,29 +1,65 @@
 run:
   deadline: 5m
-  skip-files:
-   - ".*generated.*\\.go"
 
 linters-settings:
   goimports:
     local-prefixes: github.com/vmware-tanzu
   importas:
-    no-unaliased: true
     alias:
     - pkg: k8s.io/api/core/v1
       alias: corev1
     - pkg: k8s.io/apimachinery/pkg/apis/meta/v1
       alias: metav1
 
+    - pkg: github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha1
+      alias: imgregopv1a1
+    - pkg: github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha2
+      alias: imgregopv1
+
+  depguard:
+    rules:
+      main:
+        list-mode: lax # allow unless explicitly denied
+        files:
+        - $all
+        - "!$test"
+        deny:
+        - pkg: io/ioutil
+          desc: "replaced by io and os packages since Go 1.16: https://tip.golang.org/doc/go1.16#ioutil"
+        - pkg: github.com/pkg/errors
+          desc: "replaced by stdlib errors package since Go.13: https://go.dev/blog/go1.13-errors"
+        - pkg: k8s.io/utils
+          desc: "replaced by internal packages like pkg/util/ptr"
+        - pkg: testing
+          desc: "do not import testing packages in non-test sources"
+        - pkg: github.com/onsi/ginkgo$
+          desc: "do not import testing packages in non-test sources"
+        - pkg: github.com/onsi/ginkgo/v2
+          desc: "do not import testing packages in non-test sources"
+        - pkg: github.com/onsi/gomega
+          desc: "do not import testing packages in non-test sources"
+      test:
+        list-mode: lax # allow unless explicitly denied
+        files:
+        - $test
+        deny:
+        - pkg: io/ioutil
+          desc: "replaced by io and os packages since Go 1.16: https://tip.golang.org/doc/go1.16#ioutil"
+        - pkg: github.com/pkg/errors
+          desc: "replaced by stdlib errors package since Go.13: https://go.dev/blog/go1.13-errors"
+        - pkg: k8s.io/utils
+          desc: "replaced by internal packages like pkg/util/ptr"
+        - pkg: github.com/onsi/ginkgo$
+          desc: "replaced by github.com/onsi/ginkgo/v2"
+
 linters:
   disable-all: true
   enable:
   - asciicheck
   - bodyclose
-  - deadcode
   - depguard
   - dogsled
   - errcheck
-  - exportloopref
   - goconst
   - gocritic
   - gocyclo
@@ -43,12 +79,11 @@ linters:
   - revive
   - rowserrcheck
   - staticcheck
-  - structcheck
   - stylecheck
   - typecheck
   - unconvert
   - unparam
-  - varcheck
+  - unused
 
 issues:
   max-same-issues: 0
@@ -57,6 +92,8 @@ issues:
   # This will help reviewers to focus on reviewing the most relevant changes in
   # the PRs and avoid nitpicking.
   exclude-use-default: false
+  exclude-files:
+  - ".*generated.*\\.go"
   exclude:
   # TODO: Remove the following exclusions over time once we have fixed those.
   - "ST1000: at least one file in a package should have a package comment"
@@ -65,4 +102,15 @@ issues:
   - linters:
     - revive
     text: ".*should have comment.* or be unexported"
-
+  # Ignore underscores in conversion function names as required by K8s API.
+  - path: "_conversion.go"
+    text: ".*use underscores in Go names"
+  # Ignore unsafe.Pointer() calls used in conversion functions.
+  - path: "_conversion.go"
+    text: "G103: Use of unsafe calls should be audited"
+  # Ignore different receiver names in conversion functions (e.g. src vs dst).
+  - path: "_conversion.go"
+    text: ".*receiver name"
+  # Dot imports for gomega are allowed within test files.
+  - path: _test.go
+    text: should not use dot imports

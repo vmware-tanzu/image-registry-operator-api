@@ -1,4 +1,5 @@
-// Copyright (c) 2022-2024 VMware, Inc. All Rights Reserved.
+// © Broadcom. All Rights Reserved.
+// The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 // SPDX-License-Identifier: Apache-2.0
 
 package v1alpha1
@@ -176,7 +177,7 @@ func (contentLibraryItem *ContentLibraryItem) SetConditions(conditions Condition
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Namespaced,shortName=clitem
+// +kubebuilder:resource:scope=Namespaced,shortName=libitem
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="ContentLibraryRef",type="string",JSONPath=".status.contentLibraryRef.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
@@ -215,7 +216,7 @@ func (cclItem *ClusterContentLibraryItem) SetConditions(conditions Conditions) {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,shortName=cclitem
+// +kubebuilder:resource:scope=Cluster,shortName=clibitem
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="ClusterContentLibraryRef",type="string",JSONPath=".status.contentLibraryRef.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
@@ -245,9 +246,11 @@ type ClusterContentLibraryItemList struct {
 }
 
 func init() {
-	RegisterTypeWithScheme(
+	objectTypes = append(
+		objectTypes,
 		&ContentLibraryItem{},
 		&ContentLibraryItemList{},
 		&ClusterContentLibraryItem{},
-		&ClusterContentLibraryItemList{})
+		&ClusterContentLibraryItemList{},
+	)
 }

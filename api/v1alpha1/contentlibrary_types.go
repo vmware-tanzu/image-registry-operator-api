@@ -1,4 +1,5 @@
-// Copyright (c) 2022-2024 VMware, Inc. All Rights Reserved.
+// © Broadcom. All Rights Reserved.
+// The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 // SPDX-License-Identifier: Apache-2.0
 
 package v1alpha1
@@ -100,11 +101,24 @@ type PublishInfo struct {
 	URL string `json:"URL"`
 }
 
-// ContentLibrarySpec defines the desired state of a ContentLibrary.
-type ContentLibrarySpec struct {
+type BaseContentLibrarySpec struct {
 	// UUID is the identifier which uniquely identifies the library in vCenter. This field is immutable.
 	// +required
 	UUID types.UID `json:"uuid"`
+
+	// +optional
+	// +kubebuilder:default=FROM_ITEM_ID
+
+	// ResourceNamingStrategy defines the naming strategy for item resources in this content library. If not specified,
+	// naming strategy FROM_ITEM_ID will be used to generate item resource names. This field is immutable.
+	// +optional
+	// +kubebuilder:validation:Enum=FROM_ITEM_ID;PREFER_ITEM_SOURCE_ID
+	ResourceNamingStrategy ResourceNamingStrategy `json:"resourceNamingStrategy,omitempty"`
+}
+
+// ContentLibrarySpec defines the desired state of a ContentLibrary.
+type ContentLibrarySpec struct {
+	BaseContentLibrarySpec `json:",inline"`
 
 	// Writable flag indicates if users can create new library items in this library.
 	// +required
@@ -115,12 +129,6 @@ type ContentLibrarySpec struct {
 	// +optional
 	// +kubebuilder:default=false
 	AllowImport bool `json:"allowImport,omitempty"`
-
-	// ResourceNamingStrategy defines the naming strategy for item resources in this content library. If not specified,
-	// naming strategy FROM_ITEM_ID will be used to generate item resource names. This field is immutable.
-	// +optional
-	// +kubebuilder:validation:Enum=FROM_ITEM_ID;PREFER_ITEM_SOURCE_ID
-	ResourceNamingStrategy ResourceNamingStrategy `json:"resourceNamingStrategy,omitempty"`
 }
 
 // ContentLibraryStatus defines the observed state of ContentLibrary.
@@ -199,7 +207,7 @@ func (contentLibrary *ContentLibrary) SetConditions(conditions Conditions) {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Namespaced,shortName=clib
+// +kubebuilder:resource:scope=Namespaced,shortName=lib;library
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="Writable",type="boolean",JSONPath=".spec.writable"
@@ -228,15 +236,7 @@ type ContentLibraryList struct {
 
 // ClusterContentLibrarySpec defines the desired state of a ClusterContentLibrary.
 type ClusterContentLibrarySpec struct {
-	// UUID is the identifier which uniquely identifies the library in vCenter. This field is immutable.
-	// +required
-	UUID types.UID `json:"uuid"`
-
-	// ResourceNamingStrategy defines the naming strategy for item resources in this content library. If not specified,
-	// naming strategy FROM_ITEM_ID will be used to generate item resource names. This field is immutable.
-	// +optional
-	// +kubebuilder:validation:Enum=FROM_ITEM_ID;PREFER_ITEM_SOURCE_ID
-	ResourceNamingStrategy ResourceNamingStrategy `json:"resourceNamingStrategy,omitempty"`
+	BaseContentLibrarySpec `json:",inline"`
 }
 
 func (ccl *ClusterContentLibrary) GetConditions() Conditions {
@@ -249,7 +249,7 @@ func (ccl *ClusterContentLibrary) SetConditions(conditions Conditions) {
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:scope=Cluster,shortName=cclib
+// +kubebuilder:resource:scope=Cluster,shortName=clib;clibrary
 // +kubebuilder:printcolumn:name="vSphereName",type="string",JSONPath=".status.name"
 // +kubebuilder:printcolumn:name="Type",type="string",JSONPath=".status.type"
 // +kubebuilder:printcolumn:name="StorageType",type="string",JSONPath=".status.storageBacking.type"
@@ -275,9 +275,11 @@ type ClusterContentLibraryList struct {
 }
 
 func init() {
-	RegisterTypeWithScheme(
+	objectTypes = append(
+		objectTypes,
 		&ContentLibrary{},
 		&ContentLibraryList{},
 		&ClusterContentLibrary{},
-		&ClusterContentLibraryList{})
+		&ClusterContentLibraryList{},
+	)
 }
