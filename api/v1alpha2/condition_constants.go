@@ -2,12 +2,12 @@
 // The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 // SPDX-License-Identifier: Apache-2.0
 
-package v1alpha1
+package v1alpha2
 
 // Common ConditionTypes used by Image Registry Operator API objects.
 const (
 	// ReadyCondition defines the Ready condition type that summarizes the operational state of an Image Registry Operator API object.
-	ReadyCondition ConditionType = "Ready"
+	ReadyCondition = "Ready"
 )
 
 // Common Condition.Reason used by Image Registry Operator API objects.
@@ -28,12 +28,12 @@ const (
 
 // ConditionTypes used by ContentLibraryItemImportRequest API objects.
 const (
-	ContentLibraryItemImportRequestSourceValid               ConditionType = "SourceValid"
-	ContentLibraryItemImportRequestTargetValid               ConditionType = "TargetValid"
-	ContentLibraryItemImportRequestContentLibraryItemCreated ConditionType = "ContentLibraryItemCreated"
-	ContentLibraryItemImportRequestTemplateUploaded          ConditionType = "TemplateUploaded"
-	ContentLibraryItemImportRequestContentLibraryItemReady   ConditionType = "ContentLibraryItemReady"
-	ContentLibraryItemImportRequestComplete                  ConditionType = "Complete"
+	ContentLibraryItemImportRequestSourceValid               = "SourceValid"
+	ContentLibraryItemImportRequestTargetValid               = "TargetValid"
+	ContentLibraryItemImportRequestContentLibraryItemCreated = "ContentLibraryItemCreated"
+	ContentLibraryItemImportRequestTemplateUploaded          = "TemplateUploaded"
+	ContentLibraryItemImportRequestContentLibraryItemReady   = "ContentLibraryItemReady"
+	ContentLibraryItemImportRequestComplete                  = "Complete"
 )
 
 // Condition.Reasons related to ContentLibraryItemImportRequest API objects.

@@ -1,4 +1,5 @@
-// Copyright (c) 2023-2024 VMware, Inc. All Rights Reserved.
+// © Broadcom. All Rights Reserved.
+// The term “Broadcom” refers to Broadcom Inc. and/or its subsidiaries.
 // SPDX-License-Identifier: Apache-2.0
 
 package v1alpha1
@@ -223,7 +224,7 @@ func (clItemImportRequest *ContentLibraryItemImportRequest) SetConditions(condit
 }
 
 // +kubebuilder:object:root=true
-// +kubebuilder:resource:scope=Namespaced,shortName=clitemimport
+// +kubebuilder:resource:scope=Namespaced,shortName=libitemimport
 // +kubebuilder:subresource:status
 // +kubebuilder:printcolumn:name="ContentLibraryRef",type="string",JSONPath=".spec.target.library.name"
 // +kubebuilder:printcolumn:name="ContentLibraryItemRef",type="string",JSONPath=".status.itemRef.name"
@@ -250,5 +251,9 @@ type ContentLibraryItemImportRequestList struct {
 }
 
 func init() {
-	RegisterTypeWithScheme(&ContentLibraryItemImportRequest{}, &ContentLibraryItemImportRequestList{})
+	objectTypes = append(
+		objectTypes,
+		&ContentLibraryItemImportRequest{},
+		&ContentLibraryItemImportRequestList{},
+	)
 }

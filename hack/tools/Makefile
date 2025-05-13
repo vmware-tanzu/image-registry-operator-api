@@ -24,6 +24,7 @@ GOHOSTARCH := $(shell go env GOHOSTARCH)
 
 # Binaries.
 CONTROLLER_GEN  := $(BIN_DIR)/controller-gen
+CONVERSION_GEN  := $(BIN_DIR)/$(GOHOSTOSARCH)/conversion-gen
 GOLANGCI_LINT   := $(BIN_DIR)/golangci-lint
 SETUP_ENVTEST   := $(BIN_DIR)/setup-envtest
 
@@ -54,6 +55,11 @@ setup-envtest: $(SETUP_ENVTEST) ## Install setup-envtest
 $(SETUP_ENVTEST): go.mod
 	@echo "==> Installing setup-envtest"
 	@go build -tags=api_tools -o $@ sigs.k8s.io/controller-runtime/tools/setup-envtest
+
+conversion-gen: $(CONVERSION_GEN) ## Install conversion-gen
+$(CONVERSION_GEN): go.mod
+	GOOS=$(GOHOSTOS) GOARCH=$(GOHOSTARCH) \
+	go build -tags=api_tools -o $(@) k8s.io/code-generator/cmd/conversion-gen
 
 ## --------------------------------------
 ##@ Generate
