@@ -7,12 +7,12 @@ package v1alpha1_test
 import (
 	"testing"
 
-	fuzz "github.com/google/gofuzz"
 	. "github.com/onsi/gomega"
 	"k8s.io/apimachinery/pkg/api/apitesting/fuzzer"
 	"k8s.io/apimachinery/pkg/runtime"
 	runtimeserializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
+	"sigs.k8s.io/randfill"
 
 	"github.com/vmware-tanzu/image-registry-operator-api/api/utilconversion"
 	imgregopv1a1 "github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha1"
@@ -100,8 +100,8 @@ func TestFuzzyConversion(t *testing.T) {
 
 func overrideContentLibraryFieldFuncs(_ runtimeserializer.CodecFactory) []interface{} {
 	return []interface{}{
-		func(status *imgregopv1a1.ContentLibraryStatus, c fuzz.Continue) {
-			c.Fuzz(status)
+		func(status *imgregopv1a1.ContentLibraryStatus, c randfill.Continue) {
+			c.Fill(status)
 			overrideConditionsSeverity(status.Conditions)
 		},
 	}
@@ -109,8 +109,8 @@ func overrideContentLibraryFieldFuncs(_ runtimeserializer.CodecFactory) []interf
 
 func overrideContentLibraryItemFieldFuncs(_ runtimeserializer.CodecFactory) []interface{} {
 	return []interface{}{
-		func(status *imgregopv1a1.ContentLibraryItemStatus, c fuzz.Continue) {
-			c.Fuzz(status)
+		func(status *imgregopv1a1.ContentLibraryItemStatus, c randfill.Continue) {
+			c.Fill(status)
 			overrideConditionsSeverity(status.Conditions)
 			if status.ContentLibraryRef == nil {
 				status.ContentLibraryRef = &imgregopv1a1.NameAndKindRef{
@@ -123,8 +123,8 @@ func overrideContentLibraryItemFieldFuncs(_ runtimeserializer.CodecFactory) []in
 
 func overrideClusterContentLibraryItemFieldFuncs(_ runtimeserializer.CodecFactory) []interface{} {
 	return []interface{}{
-		func(status *imgregopv1a1.ContentLibraryItemStatus, c fuzz.Continue) {
-			c.Fuzz(status)
+		func(status *imgregopv1a1.ContentLibraryItemStatus, c randfill.Continue) {
+			c.Fill(status)
 			overrideConditionsSeverity(status.Conditions)
 			if status.ContentLibraryRef == nil {
 				status.ContentLibraryRef = &imgregopv1a1.NameAndKindRef{
@@ -137,12 +137,12 @@ func overrideClusterContentLibraryItemFieldFuncs(_ runtimeserializer.CodecFactor
 
 func overrideContentLibraryItemImportRequestFieldFuncs(_ runtimeserializer.CodecFactory) []interface{} {
 	return []interface{}{
-		func(status *imgregopv1a1.ContentLibraryItemImportRequestStatus, c fuzz.Continue) {
-			c.Fuzz(status)
+		func(status *imgregopv1a1.ContentLibraryItemImportRequestStatus, c randfill.Continue) {
+			c.Fill(status)
 			overrideConditionsSeverity(status.Conditions)
 		},
-		func(spec *imgregopv1a1.ContentLibraryItemImportRequestSpec, c fuzz.Continue) {
-			c.Fuzz(spec)
+		func(spec *imgregopv1a1.ContentLibraryItemImportRequestSpec, c randfill.Continue) {
+			c.Fill(spec)
 			spec.Target.Library.APIVersion = imgregopv1a1.GroupVersion.String()
 			spec.Target.Library.Kind = "ContentLibrary"
 		},
