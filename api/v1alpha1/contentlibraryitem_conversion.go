@@ -105,6 +105,16 @@ func Convert_v1alpha2_CertificateVerificationInfo_To_v1alpha1_CertificateVerific
 	return nil
 }
 
+func Convert_v1alpha1_ContentLibraryItem_To_v1alpha2_ContentLibraryItem(in *ContentLibraryItem, out *imgregopv1.ContentLibraryItem, s apiconversion.Scope) error {
+	if err := autoConvert_v1alpha1_ContentLibraryItem_To_v1alpha2_ContentLibraryItem(in, out, s); err != nil {
+		return err
+	}
+	if out.Spec.LibraryName == "" && in.Status.ContentLibraryRef != nil {
+		out.Spec.LibraryName = in.Status.ContentLibraryRef.Name
+	}
+	return nil
+}
+
 // ConvertTo converts this ContentLibraryItem to the Hub version.
 func (src *ContentLibraryItem) ConvertTo(dstRaw ctrlconversion.Hub) error {
 
@@ -125,10 +135,6 @@ func (src *ContentLibraryItem) ConvertTo(dstRaw ctrlconversion.Hub) error {
 	dst.Status = restored.Status
 
 	// END RESTORE
-
-	if dst.Spec.LibraryName == "" && src.Status.ContentLibraryRef != nil {
-		dst.Spec.LibraryName = src.Status.ContentLibraryRef.Name
-	}
 
 	return nil
 }
@@ -181,10 +187,16 @@ func (src *ClusterContentLibraryItem) ConvertTo(dstRaw ctrlconversion.Hub) error
 
 	// END RESTORE
 
-	if dst.Spec.LibraryName == "" && src.Status.ContentLibraryRef != nil {
-		dst.Spec.LibraryName = src.Status.ContentLibraryRef.Name
-	}
+	return nil
+}
 
+func Convert_v1alpha1_ClusterContentLibraryItem_To_v1alpha2_ClusterContentLibraryItem(in *ClusterContentLibraryItem, out *imgregopv1.ClusterContentLibraryItem, s apiconversion.Scope) error {
+	if err := autoConvert_v1alpha1_ClusterContentLibraryItem_To_v1alpha2_ClusterContentLibraryItem(in, out, s); err != nil {
+		return err
+	}
+	if out.Spec.LibraryName == "" && in.Status.ContentLibraryRef != nil {
+		out.Spec.LibraryName = in.Status.ContentLibraryRef.Name
+	}
 	return nil
 }
 
