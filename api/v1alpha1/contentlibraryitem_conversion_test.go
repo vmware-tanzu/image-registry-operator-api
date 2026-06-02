@@ -17,6 +17,11 @@ import (
 	imgregopv1 "github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha2"
 )
 
+const (
+	testLibraryRefNameKey = "status.libraryRef.name"
+	testFakeLibraryName   = "fake"
+)
+
 func TestContentLibraryItemConversion(t *testing.T) {
 	t.Run("spoke-hub", func(t *testing.T) {
 		testCases := []struct {
@@ -26,18 +31,18 @@ func TestContentLibraryItemConversion(t *testing.T) {
 			spoke ctrlconversion.Convertible
 		}{
 			{
-				name: "status.libraryRef.name",
+				name: testLibraryRefNameKey,
 				spoke: &imgregopv1a1.ContentLibraryItem{
 					Status: imgregopv1a1.ContentLibraryItemStatus{
 						ContentLibraryRef: &imgregopv1a1.NameAndKindRef{
-							Name: "fake",
+							Name: testFakeLibraryName,
 						},
 					},
 				},
 				after: &imgregopv1.ContentLibraryItem{},
 				hub: &imgregopv1.ContentLibraryItem{
 					Spec: imgregopv1.ContentLibraryItemSpec{
-						LibraryName: "fake",
+						LibraryName: testFakeLibraryName,
 					},
 				},
 			},
@@ -67,13 +72,13 @@ func TestContentLibraryItemListConversion(t *testing.T) {
 			spoke ctrlconversion.Convertible
 		}{
 			{
-				name: "status.libraryRef.name",
+				name: testLibraryRefNameKey,
 				spoke: &imgregopv1a1.ContentLibraryItemList{
 					Items: []imgregopv1a1.ContentLibraryItem{
 						{
 							Status: imgregopv1a1.ContentLibraryItemStatus{
 								ContentLibraryRef: &imgregopv1a1.NameAndKindRef{
-									Name: "fake",
+									Name: testFakeLibraryName,
 								},
 							},
 						},
@@ -84,7 +89,7 @@ func TestContentLibraryItemListConversion(t *testing.T) {
 					Items: []imgregopv1.ContentLibraryItem{
 						{
 							Spec: imgregopv1.ContentLibraryItemSpec{
-								LibraryName: "fake",
+								LibraryName: testFakeLibraryName,
 							},
 						},
 					},
@@ -116,18 +121,18 @@ func TestClusterContentLibraryItemConversion(t *testing.T) {
 			spoke ctrlconversion.Convertible
 		}{
 			{
-				name: "status.libraryRef.name",
+				name: testLibraryRefNameKey,
 				spoke: &imgregopv1a1.ClusterContentLibraryItem{
 					Status: imgregopv1a1.ContentLibraryItemStatus{
 						ContentLibraryRef: &imgregopv1a1.NameAndKindRef{
-							Name: "fake",
+							Name: testFakeLibraryName,
 						},
 					},
 				},
 				after: &imgregopv1.ClusterContentLibraryItem{},
 				hub: &imgregopv1.ClusterContentLibraryItem{
 					Spec: imgregopv1.ContentLibraryItemSpec{
-						LibraryName: "fake",
+						LibraryName: testFakeLibraryName,
 					},
 				},
 			},
@@ -157,13 +162,13 @@ func TestClusterContentLibraryItemListConversion(t *testing.T) {
 			spoke ctrlconversion.Convertible
 		}{
 			{
-				name: "status.libraryRef.name",
+				name: testLibraryRefNameKey,
 				spoke: &imgregopv1a1.ClusterContentLibraryItemList{
 					Items: []imgregopv1a1.ClusterContentLibraryItem{
 						{
 							Status: imgregopv1a1.ContentLibraryItemStatus{
 								ContentLibraryRef: &imgregopv1a1.NameAndKindRef{
-									Name: "fake",
+									Name: testFakeLibraryName,
 								},
 							},
 						},
@@ -174,7 +179,7 @@ func TestClusterContentLibraryItemListConversion(t *testing.T) {
 					Items: []imgregopv1.ClusterContentLibraryItem{
 						{
 							Spec: imgregopv1.ContentLibraryItemSpec{
-								LibraryName: "fake",
+								LibraryName: testFakeLibraryName,
 							},
 						},
 					},

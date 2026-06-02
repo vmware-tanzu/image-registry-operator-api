@@ -263,14 +263,12 @@ lint: ## Run all the lint targets
 	$(MAKE) lint-go-full
 	$(MAKE) lint-markdown
 
-GOLANGCI_LINT_FLAGS ?= --fast=true
 .PHONY: lint-go
 lint-go: $(GOLANGCI_LINT) ## Lint codebase
-	$(GOLANGCI_LINT) run -v $(GOLANGCI_LINT_FLAGS)
+	$(GOLANGCI_LINT) run -v
 
 .PHONY: lint-go-full
-lint-go-full: GOLANGCI_LINT_FLAGS = --fast=false
-lint-go-full: lint-go ## Run slower linters to detect possible issues
+lint-go-full: lint-go ## Run all linters (alias kept for compatibility)
 
 .PHONY: lint-markdown
 lint-markdown: ## Lint the project's markdown

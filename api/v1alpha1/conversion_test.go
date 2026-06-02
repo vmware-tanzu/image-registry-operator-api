@@ -19,6 +19,8 @@ import (
 	imgregopv1 "github.com/vmware-tanzu/image-registry-operator-api/api/v1alpha2"
 )
 
+const contentLibraryKind = "ContentLibrary"
+
 func TestFuzzyConversion(t *testing.T) {
 
 	testCases := []struct {
@@ -28,7 +30,7 @@ func TestFuzzyConversion(t *testing.T) {
 		fuzzerFuncs func(runtimeserializer.CodecFactory) []interface{}
 	}{
 		{
-			name: "ContentLibrary",
+			name: contentLibraryKind,
 			hub:  &imgregopv1.ContentLibrary{},
 			spoke: &imgregopv1a1.ContentLibrary{
 				Status: imgregopv1a1.ContentLibraryStatus{
@@ -114,7 +116,7 @@ func overrideContentLibraryItemFieldFuncs(_ runtimeserializer.CodecFactory) []in
 			overrideConditionsSeverity(status.Conditions)
 			if status.ContentLibraryRef == nil {
 				status.ContentLibraryRef = &imgregopv1a1.NameAndKindRef{
-					Kind: "ContentLibrary",
+					Kind: contentLibraryKind,
 				}
 			}
 		},
@@ -144,7 +146,7 @@ func overrideContentLibraryItemImportRequestFieldFuncs(_ runtimeserializer.Codec
 		func(spec *imgregopv1a1.ContentLibraryItemImportRequestSpec, c randfill.Continue) {
 			c.Fill(spec)
 			spec.Target.Library.APIVersion = imgregopv1a1.GroupVersion.String()
-			spec.Target.Library.Kind = "ContentLibrary"
+			spec.Target.Library.Kind = contentLibraryKind
 		},
 	}
 }
